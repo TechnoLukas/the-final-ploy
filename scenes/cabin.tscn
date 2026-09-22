@@ -1,37 +1,28 @@
 [gd_scene format=3 uid="uid://bvuay4li2ftrf"]
 
 [ext_resource type="PackedScene" uid="uid://47oey4egdmgj" path="res://scenes/player.tscn" id="1_hn66x"]
-[ext_resource type="PackedScene" uid="uid://b3v45c2kc7ojt" path="res://assets/cabin.blend" id="2_ixm0y"]
-
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_ixm0y"]
-data = PackedVector3Array(-0.14453125, -0.09136963, 0.030761719, -0.14453125, -0.09136963, -0.030761719, -0.14453125, 0.09136963, -0.030761719, 0.14453125, -0.09136963, -0.030761719, -0.14453125, -0.09136963, -0.030761719, -0.14453125, -0.09136963, 0.030761719, -0.14453125, 0.09136963, -0.030761719, -0.14453125, -0.09136963, -0.030761719, 0.14453125, -0.09136963, -0.030761719, -0.14453125, 0.09136963, -0.030761719, -0.14453125, 0.09136963, 0.030761719, -0.14453125, -0.09136963, 0.030761719, -0.14453125, -0.09136963, 0.030761719, -0.14453125, 0.09136963, 0.030761719, 0.14453125, 0.09136963, 0.030761719, 0.14453125, 0.09136963, 0.030761719, -0.14453125, 0.09136963, 0.030761719, -0.14453125, 0.09136963, -0.030761719, -0.14453125, -0.09136963, 0.030761719, 0.14453125, -0.09136963, 0.030761719, 0.14453125, -0.09136963, -0.030761719, 0.14453125, 0.09136963, 0.030761719, 0.14453125, -0.09136963, 0.030761719, -0.14453125, -0.09136963, 0.030761719, 0.14453125, -0.09136963, -0.030761719, 0.14453125, -0.09136963, 0.030761719, 0.14453125, 0.09136963, 0.030761719, 0.14453125, -0.09136963, -0.030761719, 0.14453125, 0.09136963, -0.030761719, -0.14453125, 0.09136963, -0.030761719, -0.14453125, 0.09136963, -0.030761719, 0.14453125, 0.09136963, -0.030761719, 0.14453125, 0.09136963, 0.030761719, 0.14453125, 0.09136963, 0.030761719, 0.14453125, 0.09136963, -0.030761719, 0.14453125, -0.09136963, -0.030761719)
+[ext_resource type="PackedScene" uid="uid://btiwiu7gs481s" path="res://scenes/cabin_blender.tscn" id="2_ixm0y"]
 
 [node name="Cabin" type="Node3D" unique_id=148396708]
 
 [node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=432083615]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5)
+visible = false
 
 [node name="Player" parent="." unique_id=956410068 node_paths=PackedStringArray("target_object") instance=ExtResource("1_hn66x")]
 target_object = NodePath("../CSGBox3D")
 
 [node name="Node3D" type="Node3D" parent="." unique_id=440210938]
 
-[node name="cabin" parent="Node3D" unique_id=301173183 instance=ExtResource("2_ixm0y")]
+[node name="cabin2" parent="Node3D" unique_id=327102327 instance=ExtResource("2_ixm0y")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.8, 0)
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="." unique_id=1932731849]
-transform = Transform3D(1, 0, 0, 0, 0.99106324, -0.13339299, 0, 0.13339299, 0.99106324, 0, -0.58076495, -0.4967366)
-size = Vector3(0.07055664, 0.4781494, 0.072265625)
+[node name="YokeStand" type="Node3D" parent="." unique_id=1522600960]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.7975432, 2.204048)
 
-[node name="CSGBox3D3" type="CSGBox3D" parent="." unique_id=340554212]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.7975432, -0.5516228)
+[node name="CSGBox3D3" type="CSGBox3D" parent="YokeStand" unique_id=340554212]
 size = Vector3(0.38256836, 0.061645508, 0.24987793)
 
-[node name="INTERACTABLE_Yoke" type="Area3D" parent="." unique_id=2099493143]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.35469627, -0.4280432)
-
-[node name="shape_3d" type="CSGBox3D" parent="INTERACTABLE_Yoke" unique_id=1743545067]
-size = Vector3(0.2890625, 0.18273926, 0.061523438)
-
-[node name="shape_collision" type="CollisionShape3D" parent="INTERACTABLE_Yoke" unique_id=1887821882]
-shape = SubResource("ConcavePolygonShape3D_ixm0y")
+[node name="CSGBox3D2" type="CSGBox3D" parent="YokeStand" unique_id=1932731849]
+transform = Transform3D(1, 0, 0, 0, 0.98853374, -0.15100081, 0, 0.15100081, 0.98853374, 0, 0.215, 0)
+size = Vector3(0.07055664, 0.4781494, 0.072265625)

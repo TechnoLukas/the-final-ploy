@@ -1,5 +1,18 @@
 [gd_scene format=3 uid="uid://btiwiu7gs481s"]
 
 [ext_resource type="PackedScene" uid="uid://b3v45c2kc7ojt" path="res://assets/cabin.blend" id="1_7en3g"]
+[ext_resource type="PackedScene" uid="uid://bspp8d51qat63" path="res://scenes/Yoke_BoneAttachment.tscn" id="2_sue3v"]
 
-[node name="cabin" unique_id=1892902544 instance=ExtResource("1_7en3g")]
+[node name="cabin" unique_id=327102327 instance=ExtResource("1_7en3g")]
+
+[node name="Skeleton3D" parent="Armature" parent_id_path=PackedInt32Array(1611426906) index="0" unique_id=975543862]
+bones/1/rotation = Quaternion(0, 0.998489, 0.05495, 0)
+
+[node name="BoneAttachment3D" type="BoneAttachment3D" parent="Armature/Skeleton3D" index="1" unique_id=49566358]
+transform = Transform3D(-1, -3.1979711e-24, -1.1852646e-24, -3.3087225e-24, 0.993961, 0.10973397, 8.271806e-25, 0.10973397, -0.9939611, -2.1511874e-24, 0.4001565, 2.9802322e-08)
+bone_name = "Bone.003"
+bone_idx = 1
+
+[node name="INTERACTABLE_Yoke" parent="Armature/Skeleton3D/BoneAttachment3D" index="0" unique_id=214824858 node_paths=PackedStringArray("skeleton3d") instance=ExtResource("2_sue3v")]
+transform = Transform3D(1, 0, 0, 0, -4.3711378e-08, 0.99999976, 0, -0.99999976, -4.3711378e-08, 0, 0, 0)
+skeleton3d = NodePath("../..")
