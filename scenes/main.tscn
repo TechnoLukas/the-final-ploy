@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://dmt3ywxsnb7tb"]
+
+[ext_resource type="PackedScene" uid="uid://bvuay4li2ftrf" path="res://scenes/cabin.tscn" id="1_0wfyh"]
+[ext_resource type="Shader" uid="uid://drecd1ocjink6" path="res://shaders/space.tres" id="3_sugp2"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_31oly"]
+shader = ExtResource("3_sugp2")
+
+[sub_resource type="Sky" id="Sky_dg77c"]
+sky_material = SubResource("ShaderMaterial_31oly")
+process_mode = 3
+
+[sub_resource type="Environment" id="Environment_tbgi4"]
+background_mode = 2
+sky = SubResource("Sky_dg77c")
+
+[node name="Main" type="Node3D" unique_id=1368563020]
+
+[node name="Cabin" parent="." unique_id=148396708 instance=ExtResource("1_0wfyh")]
+
+[node name="start_xr" type="Node" parent="." unique_id=1322679981]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=284404454]
+environment = SubResource("Environment_tbgi4")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1288266537]
+transform = Transform3D(0.9659258, -0.1830127, 0.1830127, 0, 0.7071068, 0.7071068, -0.25881907, -0.6830128, 0.6830128, 0, 0, 0)

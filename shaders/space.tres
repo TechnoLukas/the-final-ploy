@@ -1,0 +1,98 @@
+[gd_resource type="VisualShader" format=3 uid="uid://drecd1ocjink6"]
+
+[sub_resource type="Gradient" id="Gradient_sugp2"]
+offsets = PackedFloat32Array(0.98734176, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ltl3h"]
+noise_type = 0
+frequency = 0.7442
+fractal_type = 0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_4i1gb"]
+width = 2048
+height = 2048
+noise = SubResource("FastNoiseLite_ltl3h")
+color_ramp = SubResource("Gradient_sugp2")
+seamless = true
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_ba4yl"]
+texture = SubResource("NoiseTexture2D_4i1gb")
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_b8neo"]
+
+[sub_resource type="Gradient" id="Gradient_dbv3q"]
+colors = PackedColorArray(0, 0.0023494514, 0.06656625, 1, 0.1534338, 0.1119399, 0.15755722, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_4i1gb"]
+frequency = 0.0016
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_dbv3q"]
+width = 2048
+height = 2048
+noise = SubResource("FastNoiseLite_4i1gb")
+color_ramp = SubResource("Gradient_dbv3q")
+seamless = true
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_4i1gb"]
+texture = SubResource("NoiseTexture2D_dbv3q")
+
+[sub_resource type="Gradient" id="Gradient_tbgi4"]
+offsets = PackedFloat32Array(0.7173397, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.08095192, 0, 0.0063892156, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_jyhfs"]
+frequency = 0.002
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_sugp2"]
+noise = SubResource("FastNoiseLite_jyhfs")
+color_ramp = SubResource("Gradient_tbgi4")
+seamless = true
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_dbv3q"]
+texture = SubResource("NoiseTexture2D_sugp2")
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_ba4yl"]
+output_port_for_preview = 0
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_4i1gb"]
+input_name = "sky_coords"
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_dbv3q"]
+input_name = "sky_coords"
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_b8neo"]
+texture = SubResource("NoiseTexture2D_4i1gb")
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_sqnb0"]
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_1pv55"]
+input_name = "eyedir"
+
+[resource]
+mode = 3
+flags/use_half_res_pass = false
+flags/use_quarter_res_pass = false
+flags/disable_fog = false
+flags/use_debanding = false
+nodes/sky/0/position = Vector2(1493.3334, 226.66667)
+nodes/sky/2/node = SubResource("VisualShaderNodeTexture_4i1gb")
+nodes/sky/2/position = Vector2(320, 160)
+nodes/sky/3/node = SubResource("VisualShaderNodeInput_dbv3q")
+nodes/sky/3/position = Vector2(-66.666664, 213.33333)
+nodes/sky/7/node = SubResource("VisualShaderNodeInput_1pv55")
+nodes/sky/7/position = Vector2(-93.333336, 53.333332)
+nodes/sky/11/node = SubResource("VisualShaderNodeTexture_ba4yl")
+nodes/sky/11/position = Vector2(306.66666, 840)
+nodes/sky/16/node = SubResource("VisualShaderNodeVectorOp_b8neo")
+nodes/sky/16/position = Vector2(626.6667, 320)
+nodes/sky/26/node = SubResource("VisualShaderNodeTexture_dbv3q")
+nodes/sky/26/position = Vector2(320, 466.66666)
+nodes/sky/27/node = SubResource("VisualShaderNodeVectorOp_ba4yl")
+nodes/sky/27/position = Vector2(1133.3334, 360)
+nodes/sky/28/node = SubResource("VisualShaderNodeInput_4i1gb")
+nodes/sky/28/position = Vector2(-146.66667, 906.6667)
+nodes/sky/34/node = SubResource("VisualShaderNodeTexture_b8neo")
+nodes/sky/34/position = Vector2(320, -160)
+nodes/sky/35/node = SubResource("VisualShaderNodeVectorOp_sqnb0")
+nodes/sky/35/position = Vector2(880, 160)
+nodes/sky/connections = PackedInt32Array(3, 0, 2, 0, 3, 0, 26, 0, 2, 0, 16, 0, 26, 0, 16, 1, 28, 0, 11, 0, 3, 0, 34, 0, 34, 0, 35, 0, 16, 0, 35, 1, 35, 0, 27, 0, 11, 0, 27, 1, 27, 0, 0, 0)

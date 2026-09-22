@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://btiwiu7gs481s"]
+
+[ext_resource type="PackedScene" uid="uid://b3v45c2kc7ojt" path="res://assets/cabin.blend" id="1_7en3g"]
+
+[node name="cabin" unique_id=1892902544 instance=ExtResource("1_7en3g")]
