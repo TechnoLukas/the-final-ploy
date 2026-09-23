@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://df5hynbooj1uj" path="res://addons/hand_pose_detector/hand_pose_detector.tscn" id="6_jej6c"]
 [ext_resource type="PackedScene" uid="uid://d0tfama4eqsdj" path="res://addons/hand_pose_detector/hands/RightHandHumanoid.gltf" id="7_f1ej7"]
 [ext_resource type="PackedScene" uid="uid://dt4ukwrlu5gem" path="res://addons/hand_pose_detector/hands/LeftHandHumanoid.gltf" id="8_oprun"]
+[ext_resource type="Script" uid="uid://dcy8du1vv33f4" path="res://scripts/left_hand.gd" id="11_3v2ag"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_d2wvv"]
 viewport_path = NodePath("XRCamera3D/MeshInstance3D/SubViewport")
@@ -136,6 +137,7 @@ debug_shape_custom_color = Color(1, 1, 1, 1)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="right/RightHandHumanoid2/RightHandHumanoid/Skeleton3D/BoneAttachment3D/FistArea" unique_id=1859760833]
 transform = Transform3D(1, 0, -3.5527137e-15, 0, 1, 0, 0, 0, 1, 2.3646862e-11, 0.075, 0.02000004)
+visible = false
 material_override = SubResource("StandardMaterial3D_y4r1p")
 size = Vector3(0.07, 0.07, 0.06)
 
@@ -143,10 +145,12 @@ size = Vector3(0.07, 0.07, 0.06)
 transform = Transform3D(1, 0, -3.5527137e-15, 0, 1, 0, 0, 0, 1, 2.3646862e-11, 0.075, 0.02000004)
 shape = SubResource("ConvexPolygonShape3D_d2wvv")
 
-[node name="left" type="XRNode3D" parent="." unique_id=603657195]
+[node name="left" type="XRNode3D" parent="." unique_id=603657195 node_paths=PackedStringArray("hand_fist_area")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.382, 0, 0)
 tracker = &"/user/hand_tracker/left"
 show_when_tracked = true
+script = ExtResource("11_3v2ag")
+hand_fist_area = NodePath("LeftHandHumanoid2/LeftHandHumanoid/Skeleton3D/BoneAttachment3D/FistArea2")
 
 [node name="HandPoseController" parent="left" unique_id=1959174124 instance=ExtResource("1_smehm")]
 controller_pose_type = 2
@@ -171,6 +175,32 @@ transform = Transform3D(1, 0, 0, 0, 1.0000002, 0, 0, 0, 1.0000005, 0, 0, 0)
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="left/LeftHandHumanoid2/LeftHandHumanoid/Skeleton3D/tip5/left_hand" unique_id=1278451179]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, -0.015, 0)
 shape = SubResource("CapsuleShape3D_qfm1y")
+
+[node name="BoneAttachment3D" type="BoneAttachment3D" parent="left/LeftHandHumanoid2/LeftHandHumanoid/Skeleton3D" parent_id_path=PackedInt32Array(1331927910, 982471709) index="3" unique_id=615949696]
+transform = Transform3D(1.7881392e-07, -1.838803e-05, 0.99999994, -0.9999985, 0.0016677376, 1.7881392e-07, -0.0016676484, -0.99999833, -1.8358229e-05, 3.8642522e-08, -1.8697472e-05, 0.027175574)
+bone_name = "RightHand"
+bone_idx = 0
+
+[node name="ShapeCast3D2" type="ShapeCast3D" parent="left/LeftHandHumanoid2/LeftHandHumanoid/Skeleton3D/BoneAttachment3D" unique_id=82779417]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.075, 0.02)
+visible = false
+shape = SubResource("BoxShape3D_y4r1p")
+target_position = Vector3(0, 0, 0)
+collide_with_areas = true
+collide_with_bodies = false
+debug_shape_custom_color = Color(1, 1, 1, 1)
+
+[node name="FistArea2" type="Area3D" parent="left/LeftHandHumanoid2/LeftHandHumanoid/Skeleton3D/BoneAttachment3D" unique_id=156665735]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="left/LeftHandHumanoid2/LeftHandHumanoid/Skeleton3D/BoneAttachment3D/FistArea2" unique_id=1380933551]
+transform = Transform3D(1, 0, -3.5527137e-15, 0, 1, 0, 0, 0, 1, 2.3646862e-11, 0.075, 0.02000004)
+visible = false
+material_override = SubResource("StandardMaterial3D_y4r1p")
+size = Vector3(0.07, 0.07, 0.06)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="left/LeftHandHumanoid2/LeftHandHumanoid/Skeleton3D/BoneAttachment3D/FistArea2" unique_id=86933996]
+transform = Transform3D(1, 0, -3.5527137e-15, 0, 1, 0, 0, 0, 1, 2.3646862e-11, 0.075, 0.02000004)
+shape = SubResource("ConvexPolygonShape3D_d2wvv")
 
 [editable path="right/RightHandHumanoid2"]
 [editable path="left/LeftHandHumanoid2"]

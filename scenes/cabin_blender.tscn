@@ -1,18 +1,50 @@
 [gd_scene format=3 uid="uid://btiwiu7gs481s"]
 
 [ext_resource type="PackedScene" uid="uid://b3v45c2kc7ojt" path="res://assets/cabin.blend" id="1_7en3g"]
-[ext_resource type="PackedScene" uid="uid://bspp8d51qat63" path="res://scenes/Yoke_BoneAttachment.tscn" id="2_sue3v"]
+[ext_resource type="PackedScene" uid="uid://balvqk47tyr75" path="res://scenes/INTERACTABLE_Throttle.tscn" id="2_88wu6"]
+[ext_resource type="Script" uid="uid://bwl7vjelj7jdu" path="res://scripts/cabin_interactable_values.gd" id="2_rdbi1"]
+[ext_resource type="PackedScene" uid="uid://bspp8d51qat63" path="res://scenes/INTERACTABLE_Yoke.tscn" id="2_sue3v"]
 
 [node name="cabin" unique_id=327102327 instance=ExtResource("1_7en3g")]
+script = ExtResource("2_rdbi1")
 
-[node name="Skeleton3D" parent="Armature" parent_id_path=PackedInt32Array(1611426906) index="0" unique_id=975543862]
-bones/1/rotation = Quaternion(0, 0.998489, 0.05495, 0)
+[node name="BoneAttachment3D" type="BoneAttachment3D" parent="Armature_001/Skeleton3D" parent_id_path=PackedInt32Array(2064948431) index="0" unique_id=818918525]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.13992268, 0)
+bone_name = "Bone.001"
+bone_idx = 1
+
+[node name="INTERACTABLE_Throttle" parent="Armature_001/Skeleton3D/BoneAttachment3D" index="0" unique_id=955374749 node_paths=PackedStringArray("skeleton3d") instance=ExtResource("2_88wu6")]
+skeleton3d = NodePath("../..")
+
+[node name="Skeleton3D" parent="Armature" parent_id_path=PackedInt32Array(625891110) index="0" unique_id=118206436]
+bones/1/rotation = Quaternion(0, -0.863396, -0.504528, 0)
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="Armature/Skeleton3D" index="1" unique_id=49566358]
-transform = Transform3D(-1, -3.1979711e-24, -1.1852646e-24, -3.3087225e-24, 0.993961, 0.10973397, 8.271806e-25, 0.10973397, -0.9939611, -2.1511874e-24, 0.4001565, 2.9802322e-08)
+transform = Transform3D(-0.9999999, -9.036126e-25, -3.2886708e-24, -3.308722e-24, 0.49090362, 0.87121385, 8.271805e-25, 0.87121385, -0.4909035, -2.1511874e-24, 0.4001565, 2.9802322e-08)
 bone_name = "Bone.003"
 bone_idx = 1
 
 [node name="INTERACTABLE_Yoke" parent="Armature/Skeleton3D/BoneAttachment3D" index="0" unique_id=214824858 node_paths=PackedStringArray("skeleton3d") instance=ExtResource("2_sue3v")]
-transform = Transform3D(1, 0, 0, 0, -4.3711378e-08, 0.99999976, 0, -0.99999976, -4.3711378e-08, 0, 0, 0)
+transform = Transform3D(-1, 8.7422755e-08, 3.82137e-15, 0, -4.3711378e-08, 0.99999976, 8.742278e-08, 0.99999976, 4.3711378e-08, 0, 0, 0)
 skeleton3d = NodePath("../..")
+
+[node name="ThrottleValue" type="Label3D" parent="." index="10" unique_id=756906188]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0.675088, -0.6804815)
+modulate = Color(6.930828e-06, 0.7418971, 0.31971487, 1)
+text = "awd"
+font_size = 64
+outline_size = 2
+
+[node name="YokeAngleValue" type="Label3D" parent="." index="11" unique_id=781323102]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0.7647452, -0.6804815)
+modulate = Color(6.930828e-06, 0.7418971, 0.31971487, 1)
+text = "awd"
+font_size = 64
+outline_size = 2
+
+[node name="YokecollumnAngleValue" type="Label3D" parent="." index="12" unique_id=729687349]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0.8561875, -0.6804815)
+modulate = Color(6.930828e-06, 0.7418971, 0.31971487, 1)
+text = "awd"
+font_size = 64
+outline_size = 2

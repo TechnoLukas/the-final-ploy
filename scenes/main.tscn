@@ -15,6 +15,9 @@ background_mode = 2
 sky = SubResource("Sky_dg77c")
 ambient_light_source = 1
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0wfyh"]
+albedo_color = Color(1, 0.7921569, 0.52156866, 1)
+
 [node name="Main" type="Node3D" unique_id=1368563020]
 
 [node name="Cabin" parent="." unique_id=148396708 instance=ExtResource("1_0wfyh")]
@@ -24,5 +27,41 @@ ambient_light_source = 1
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=284404454]
 environment = SubResource("Environment_tbgi4")
 
-[node name="AreaLight3D" type="AreaLight3D" parent="." unique_id=325114483]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.8916167)
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=819996530]
+transform = Transform3D(0.23971575, 0.0736127, 0.16467403, -0.13025823, 0.26010233, 0.0733456, -0.12477643, -0.13010748, 0.2397976, 1.2375393, 0.43333247, -0.20013171)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="." unique_id=1726047733]
+transform = Transform3D(0.06147556, 0.011551075, 0.29340643, -0.18610081, 0.23340572, 0.029803606, -0.22712824, -0.18811795, 0.054994687, 1.2375393, 0.1224958, -1.1222832)
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="." unique_id=601251157]
+transform = Transform3D(0.06147556, 0.011551075, 0.29340643, -0.18610081, 0.23340572, 0.029803606, -0.22712824, -0.18811795, 0.054994687, 1.2375393, 0.1224958, -5.272414)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="." unique_id=143749226]
+transform = Transform3D(-0.012445342, 0.028177537, -0.29841438, -0.18623845, 0.23329693, 0.029795926, 0.2348624, 0.18649021, 0.0078142695, -0.745, 0.523, -1.343)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="." unique_id=415187739]
+transform = Transform3D(-0.012445342, 0.028177537, -0.29841438, -0.18623845, 0.23329693, 0.029795926, 0.2348624, 0.18649021, 0.0078142695, 0.89101005, 0.523, -3.0731022)
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="." unique_id=1171533883]
+transform = Transform3D(-0.012445342, 0.028177537, -0.29841438, -0.18623845, 0.23329693, 0.029795926, 0.2348624, 0.18649021, 0.0078142695, -0.7113091, 0.523, -3.7423942)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="." unique_id=1988850011]
+transform = Transform3D(-0.175859, 0.21687634, 0.10971904, 0.062555954, -0.090476975, 0.2791069, 0.2348624, 0.18649018, 0.007814268, -0.745, -0.24374044, -2.013198)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="." unique_id=1366355979]
+transform = Transform3D(-0.175859, 0.21687634, 0.10971904, 0.062555954, -0.090476975, 0.2791069, 0.2348624, 0.18649018, 0.007814268, -0.745, -0.24374044, -2.013198)
+
+[node name="CSGBox3D9" type="CSGBox3D" parent="." unique_id=280849541]
+transform = Transform3D(-0.175859, 0.21687634, 0.10971904, 0.062555954, -0.090476975, 0.2791069, 0.2348624, 0.18649018, 0.007814268, -0.745, -0.24374044, -5.7085295)
+
+[node name="CSGBox3D10" type="CSGBox3D" parent="." unique_id=1288322659]
+transform = Transform3D(-0.175859, 0.21687634, 0.10971904, 0.062555954, -0.090476975, 0.2791069, 0.2348624, 0.18649018, 0.007814268, -0.745, -0.24374044, -5.7085295)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=703549068]
+transform = Transform3D(0.70710677, 0.49999997, -0.49999997, 0, 0.70710677, 0.70710677, 0.70710677, -0.49999997, 0.49999997, 0, 0, 0)
+light_color = Color(1, 0.8980392, 1, 1)
+light_energy = 0.1
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="." unique_id=16553547]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 23.22309, 1.4746609, -37.747475)
+material = SubResource("StandardMaterial3D_0wfyh")

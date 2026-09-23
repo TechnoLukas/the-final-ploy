@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bspp8d51qat63"]
 
-[ext_resource type="Script" uid="uid://du1uyy1kmls6" path="res://scripts/interactable_yoke.gd" id="1_yf1kl"]
+[ext_resource type="Script" uid="uid://du1uyy1kmls6" path="res://scripts/interactable_yoke.gd" id="1_h00jd"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mia5v"]
 transparency = 1
@@ -16,7 +16,8 @@ albedo_color = Color(1, 0, 0, 1)
 albedo_color = Color(1.92523e-07, 0.6486974, 0.13639057, 1)
 
 [node name="INTERACTABLE_Yoke" type="Area3D" unique_id=2144212103]
-script = ExtResource("1_yf1kl")
+script = ExtResource("1_h00jd")
+yoke_angle_limit = 35.0
 
 [node name="shape_3d" type="CSGBox3D" parent="." unique_id=942328773]
 transform = Transform3D(1, 0, 0, 0, 1.0000001, -1.4901161e-08, 0, 1.4901161e-08, 1.0000001, 0, 0, 0)
@@ -28,14 +29,16 @@ transform = Transform3D(1, 0, 0, 0, 1.0000001, -1.4901161e-08, 0, 1.4901161e-08,
 shape = SubResource("ConcavePolygonShape3D_l3eon")
 
 [node name="Label3D" type="Label3D" parent="." unique_id=1163884309]
-transform = Transform3D(1, 0, 0, 0, 1.0000001, -1.4901161e-08, 0, 1.4901161e-08, 1.0000001, 0, -5.6221433e-10, 0.03772957)
-font_size = 10
+transform = Transform3D(0.16, 0, 0, 0, 0.16, -2.3841855e-09, 0, 2.3841855e-09, 0.16, 0, -5.6221433e-10, 0.03772957)
+visible = false
+text = "awdawd"
+font_size = 40
 outline_size = 1
 
 [node name="CSGSphere3D" type="CSGSphere3D" parent="." unique_id=594234989]
-radius = 0.04
+radius = 0.02
 material = SubResource("StandardMaterial3D_yf1kl")
 
 [node name="CSGSphere3D2" type="CSGSphere3D" parent="." unique_id=1840230803]
-radius = 0.04
+radius = 0.02
 material = SubResource("StandardMaterial3D_l3eon")
