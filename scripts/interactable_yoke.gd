@@ -21,7 +21,33 @@ var init_collumn2hand_proj : Vector3
 
 @onready var mylable = $Label3D	
 
+@export var yoke_idle_timer : Timer
+var is_yoke_returning = false
+@export var collumn_idle_timer : Timer
+var is_collumn_returning = false
+
+func _ready() -> void:
+	yoke_idle_timer.timeout.connect(_on_yoke_idle_timeout)
+	collumn_idle_timer.timeout.connect(_on_collumn_idle_timeout)
+	
+func _process(delta: float) -> void:
+	if is_yoke_returning:
+		var yoke_current_rot := skeleton3d.get_bone_pose_rotation(bone_yoke_idx)
+		var yoke_new_rot := yoke_current_rot.slerp(rest_yoke_pose_rot, 5.0 * delta)
+		skeleton3d.set_bone_pose_rotation(bone_yoke_idx, yoke_new_rot)
+		owner.yoke_angle_value = get_bone_rotation(bone_yoke_idx, rest_yoke_pose_rot, Vector3.UP, yoke_angle_limit, true)
+		owner.yoke_angle_value_degrees = get_bone_rotation(bone_yoke_idx, rest_yoke_pose_rot, Vector3.UP, yoke_angle_limit, false)
+		
+	if is_collumn_returning:	
+		var collumn_current_rot := skeleton3d.get_bone_pose_rotation(bone_collumn_idx)
+		var collumn_new_rot := collumn_current_rot.slerp(rest_collumn_pose_rot, 5.0 * delta)
+		skeleton3d.set_bone_pose_rotation(bone_collumn_idx, collumn_new_rot)
+		owner.yokecollumn_angle_value = -get_bone_rotation(bone_collumn_idx, rest_collumn_pose_rot, Vector3.RIGHT, collumn_angle_limit, true)
+		owner.yokecollumn_angle_value_degrees = -get_bone_rotation(bone_collumn_idx, rest_collumn_pose_rot, Vector3.RIGHT, collumn_angle_limit, false)
+
 func _on_righthand_grab(grabber_transform: Transform3D) -> void:
+	is_yoke_returning = false
+	is_collumn_returning = false
 	# YOKE ROTATION
 	initial_yoke_bone_pose_rot = skeleton3d.get_bone_pose_rotation(bone_yoke_idx)
 	var yoke_bone_global_pos = skeleton3d.global_transform * skeleton3d.get_bone_global_pose(bone_yoke_idx).origin
@@ -43,6 +69,8 @@ func _on_righthand_grab(grabber_transform: Transform3D) -> void:
 	init_collumn2hand_proj = (initial_collumn2hand_dir_local - collumn_proj_on_axis).normalized()
 
 func _righthand_grabbing(grabber_transform: Transform3D) -> void:
+	is_yoke_returning = false
+	is_collumn_returning = false
 	# YOKE ROTATION
 	var yoke_bone_global_pos = skeleton3d.global_transform * skeleton3d.get_bone_global_pose(bone_yoke_idx).origin
 	var yoke2hand_dir_world = (grabber_transform.origin - yoke_bone_global_pos).normalized()
@@ -61,10 +89,8 @@ func _righthand_grabbing(grabber_transform: Transform3D) -> void:
 	var yoke_target_pose_rot_clamped = rest_yoke_pose_rot * Quaternion(Vector3.UP, yoke_angle_clamped)
 	skeleton3d.set_bone_pose_rotation(bone_yoke_idx, yoke_target_pose_rot_clamped)
 	
-	var yoke_rel = rest_yoke_pose_rot.inverse() * skeleton3d.get_bone_pose_rotation(bone_yoke_idx)
-	var yoke_mes = rad_to_deg(yoke_rel.get_angle() * yoke_rel.get_axis().dot(Vector3.UP))
-	var yoke_angle_value_mapped = -clampf(yoke_mes, -yoke_angle_limit, yoke_angle_limit)
-	owner.yoke_angle_value = yoke_angle_value_mapped
+	owner.yoke_angle_value = get_bone_rotation(bone_yoke_idx, rest_yoke_pose_rot, Vector3.UP, yoke_angle_limit, true)
+	owner.yoke_angle_value_degrees = get_bone_rotation(bone_yoke_idx, rest_yoke_pose_rot, Vector3.UP, yoke_angle_limit, false)
 	
 	# COLLUMN ROTATION
 	var point_above_world: Vector3 = grabber_transform.origin + grabber_transform.basis.z.normalized() * 0.15
@@ -88,21 +114,36 @@ func _righthand_grabbing(grabber_transform: Transform3D) -> void:
 	var collumn_target_pose_rot_raw = (initial_collumn_bone_pose_rot * collumn_x_rot_diff).normalized()
 	var collumn_rel_rot_from_rest = rest_collumn_pose_rot.inverse() * collumn_target_pose_rot_raw
 	var collumn_angle_raw = collumn_rel_rot_from_rest.get_euler().x
+	#var collumn_angle_raw = 2.0 * atan2(collumn_rel_rot_from_rest.x, collumn_rel_rot_from_rest.w)
 	var collumn_angle_clamped = clamp(collumn_angle_raw, deg_to_rad(-collumn_angle_limit), deg_to_rad(collumn_angle_limit))
 	var collumn_target_pose_rot_clamped = rest_collumn_pose_rot * Quaternion(Vector3.RIGHT, collumn_angle_clamped)
 	skeleton3d.set_bone_pose_rotation(bone_collumn_idx, collumn_target_pose_rot_clamped)
 	
-	var collumn_rot = rest_collumn_pose_rot.inverse() * skeleton3d.get_bone_pose_rotation(bone_collumn_idx)
-	var collumn_mes = rad_to_deg(collumn_rot.get_angle() * collumn_rot.get_axis().dot(Vector3.RIGHT))
-	var yokecollumn_angle_value_mapped = -clampf(collumn_mes, -collumn_angle_limit, collumn_angle_limit)
-	owner.yokecollumn_angle_value = yokecollumn_angle_value_mapped
+	owner.yokecollumn_angle_value = -get_bone_rotation(bone_collumn_idx, rest_collumn_pose_rot, Vector3.RIGHT, collumn_angle_limit, true)
+	owner.yokecollumn_angle_value_degrees = -get_bone_rotation(bone_collumn_idx, rest_collumn_pose_rot, Vector3.RIGHT, collumn_angle_limit, false)
+
+
+#func get_bone_rotation(bone_idx, rest_pose_rot, vector, angle_limit):
+	#var bone_rot = rest_pose_rot.inverse() * skeleton3d.get_bone_pose_rotation(bone_idx)
+	#var bone_mes = rad_to_deg(bone_rot.get_angle() * bone_rot.get_axis().dot(vector))
+	#var bone_angle_value_mapped = clampf(remap(bone_mes, -angle_limit, angle_limit, 1.0, -1.0), -1.0, 1.0)
+	#return bone_angle_value_mapped
 	
-	#clampf(remap(yoke_target_pose_rot_clamped.get_euler().x, deg_to_rad(-yoke_angle_limit), deg_to_rad(yoke_angle_limit), 1.0, -1.0), -1.0, 1.0)
-	owner.yokecollumn_angle_value = yokecollumn_angle_value_mapped
+func get_bone_rotation(bone_idx, rest_pose_rot, vector, angle_limit, is_normalised):
+	var bone_rot = rest_pose_rot.inverse() * skeleton3d.get_bone_pose_rotation(bone_idx)
+	var component = bone_rot.x if vector == Vector3.RIGHT else (bone_rot.y if vector == Vector3.UP else bone_rot.z)
+	var bone_mes = rad_to_deg(2.0 * atan2(component, bone_rot.w))
+	var bone_angle_value_mapped
+	if is_normalised:
+		bone_angle_value_mapped = clampf(remap(bone_mes, -angle_limit, angle_limit, 1.0, -1.0), -1.0, 1.0)
+	else:
+		bone_angle_value_mapped = clampf(remap(bone_mes, -angle_limit, angle_limit, angle_limit, -angle_limit), -angle_limit, angle_limit)
+	return bone_angle_value_mapped
 	
 
 func _on_righthand_release() -> void:
-	pass
+	yoke_idle_timer.start()
+	collumn_idle_timer.start()
 	
 func _on_lefthand_grab(grabber_transform: Transform3D) -> void:
 	_on_righthand_grab(grabber_transform)
@@ -111,4 +152,10 @@ func _lefthand_grabbing(grabber_transform: Transform3D) -> void:
 	_righthand_grabbing(grabber_transform)
 		
 func _on_lefthand_release() -> void:
-	pass	
+	_on_righthand_release()
+	
+func _on_yoke_idle_timeout() -> void:
+	is_yoke_returning = true
+
+func _on_collumn_idle_timeout() -> void:
+	is_collumn_returning = true

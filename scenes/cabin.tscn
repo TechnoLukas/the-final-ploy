@@ -4,8 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://47oey4egdmgj" path="res://scenes/player.tscn" id="1_hn66x"]
 [ext_resource type="PackedScene" uid="uid://btiwiu7gs481s" path="res://scenes/cabin_blender.tscn" id="2_ixm0y"]
 
-[node name="Cabin" type="Node3D" unique_id=148396708]
+[node name="Cabin" type="Node3D" unique_id=148396708 node_paths=PackedStringArray("cabin_interactive_values")]
 script = ExtResource("1_84mq0")
+cabin_interactive_values = NodePath("Node3D/cabin2")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=432083615]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5)
@@ -19,22 +20,13 @@ target_object = NodePath("../CSGBox3D")
 [node name="cabin2" parent="Node3D" unique_id=327102327 instance=ExtResource("2_ixm0y")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.8, 0)
 
-[node name="YokeStand" type="Node3D" parent="." unique_id=1522600960]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.7975432, 2.204048)
-
-[node name="CSGBox3D3" type="CSGBox3D" parent="YokeStand" unique_id=340554212]
-size = Vector3(0.38256836, 0.061645508, 0.24987793)
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="YokeStand" unique_id=1932731849]
-transform = Transform3D(1, 0, 0, 0, 0.98853374, -0.15100081, 0, 0.15100081, 0.98853374, 0, 0.215, 0)
-size = Vector3(0.07055664, 0.4781494, 0.072265625)
-
 [node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=1349053924]
 transform = Transform3D(1, 0, 0, 0, 0.12939839, 0.9915927, 0, -0.9915927, 0.12939839, 0, 0.4066861, 0)
-visible = false
 light_color = Color(1, 1, 0.9254902, 1)
+shadow_enabled = true
+spot_angle = 58.72
 
 [node name="SpotLight3D2" type="OmniLight3D" parent="." unique_id=33558907]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.017481789, -0.3832715)
+transform = Transform3D(-0.40428394, 0, 0.9146335, 0, 1, 0, -0.9146335, 0, -0.40428394, 0.0003193468, 0.15964824, 0.04750073)
 light_energy = 0.1
 omni_range = 2.0

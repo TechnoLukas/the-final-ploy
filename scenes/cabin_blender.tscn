@@ -4,23 +4,131 @@
 [ext_resource type="PackedScene" uid="uid://balvqk47tyr75" path="res://scenes/INTERACTABLE_Throttle.tscn" id="2_88wu6"]
 [ext_resource type="Script" uid="uid://bwl7vjelj7jdu" path="res://scripts/cabin_interactable_values.gd" id="2_rdbi1"]
 [ext_resource type="PackedScene" uid="uid://bspp8d51qat63" path="res://scenes/INTERACTABLE_Yoke.tscn" id="2_sue3v"]
+[ext_resource type="Shader" uid="uid://bv1fddw136mbm" path="res://shaders/glass.tres" id="4_b01jo"]
+[ext_resource type="Shader" uid="uid://8snwqemcj48x" path="res://shaders/chair.tres" id="5_7xm7r"]
+[ext_resource type="Shader" uid="uid://uu4dgb16vhrv" path="res://shaders/screen.tres" id="5_x61ng"]
+[ext_resource type="FontFile" uid="uid://288likiruhul" path="res://assets/Quantico/Quantico-Regular.ttf" id="8_rdatr"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gou67"]
+render_priority = 0
+shader = ExtResource("5_7xm7r")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jx684"]
+render_priority = 0
+shader = ExtResource("5_7xm7r")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x61ng"]
+albedo_color = Color(0.20511743, 0.20511743, 0.20511743, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wqtg4"]
+albedo_color = Color(0.5106012, 0.5106013, 0.5106012, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_878yp"]
+render_priority = 0
+shader = ExtResource("5_x61ng")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kdeec"]
+render_priority = 0
+shader = ExtResource("5_x61ng")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_b01jo"]
+render_priority = 0
+shader = ExtResource("4_b01jo")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7xm7r"]
+render_priority = 0
+shader = ExtResource("4_b01jo")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_61fwt"]
+render_priority = 0
+shader = ExtResource("4_b01jo")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rdatr"]
+render_priority = 0
+shader = ExtResource("4_b01jo")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tgeac"]
+render_priority = 0
+shader = ExtResource("4_b01jo")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2dy2n"]
+render_priority = 0
+shader = ExtResource("5_x61ng")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x61ng"]
+render_priority = 0
+shader = ExtResource("5_7xm7r")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7xm7r"]
+albedo_color = Color(0.16924527, 0.16924533, 0.16924518, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ojbhn"]
+render_priority = 0
+shader = ExtResource("5_7xm7r")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tgeac"]
+albedo_color = Color(0.5402823, 0.5682083, 0.6676037, 1)
+metallic = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kdeec"]
+albedo_color = Color(0.10872077, 0.10872077, 0.10872076, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jx684"]
+albedo_color = Color(0.39181867, 0.39181864, 0.39181864, 1)
 
 [node name="cabin" unique_id=327102327 instance=ExtResource("1_7en3g")]
 script = ExtResource("2_rdbi1")
 
-[node name="BoneAttachment3D" type="BoneAttachment3D" parent="Armature_001/Skeleton3D" parent_id_path=PackedInt32Array(2064948431) index="0" unique_id=818918525]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.13992268, 0)
-bone_name = "Bone.001"
-bone_idx = 1
+[node name="Chair" parent="." index="0" unique_id=138706187]
+surface_material_override/0 = SubResource("ShaderMaterial_gou67")
 
-[node name="INTERACTABLE_Throttle" parent="Armature_001/Skeleton3D/BoneAttachment3D" index="0" unique_id=955374749 node_paths=PackedStringArray("skeleton3d") instance=ExtResource("2_88wu6")]
-skeleton3d = NodePath("../..")
+[node name="ChairR" parent="." index="1" unique_id=1799730018]
+surface_material_override/0 = SubResource("ShaderMaterial_jx684")
 
-[node name="Skeleton3D" parent="Armature" parent_id_path=PackedInt32Array(625891110) index="0" unique_id=118206436]
-bones/1/rotation = Quaternion(0, -0.863396, -0.504528, 0)
+[node name="WholeThing" parent="." index="2" unique_id=327031873]
+surface_material_override/0 = SubResource("StandardMaterial3D_x61ng")
+
+[node name="MenuR" parent="." index="3" unique_id=1044081025]
+surface_material_override/0 = SubResource("StandardMaterial3D_wqtg4")
+surface_material_override/1 = SubResource("ShaderMaterial_878yp")
+
+[node name="MenuL" parent="." index="4" unique_id=809996884]
+surface_material_override/0 = SubResource("StandardMaterial3D_wqtg4")
+surface_material_override/1 = SubResource("ShaderMaterial_kdeec")
+
+[node name="Glass_Side1" parent="." index="5" unique_id=540447145]
+surface_material_override/0 = SubResource("ShaderMaterial_b01jo")
+
+[node name="Glass_front" parent="." index="6" unique_id=815317611]
+surface_material_override/0 = SubResource("ShaderMaterial_7xm7r")
+
+[node name="Glass_Side2" parent="." index="7" unique_id=33923722]
+surface_material_override/0 = SubResource("ShaderMaterial_61fwt")
+
+[node name="Glass_Side2_001" parent="." index="8" unique_id=1888023024]
+surface_material_override/0 = SubResource("ShaderMaterial_rdatr")
+
+[node name="Glass_Side1_001" parent="." index="9" unique_id=918593496]
+surface_material_override/0 = SubResource("ShaderMaterial_tgeac")
+
+[node name="MenuM" parent="." index="10" unique_id=998926632]
+surface_material_override/1 = SubResource("ShaderMaterial_2dy2n")
+
+[node name="Cube_011" parent="." index="11" unique_id=57896498]
+surface_material_override/0 = SubResource("ShaderMaterial_x61ng")
+surface_material_override/1 = SubResource("StandardMaterial3D_7xm7r")
+
+[node name="ChairR_001" parent="." index="12" unique_id=713160217]
+surface_material_override/0 = SubResource("ShaderMaterial_ojbhn")
+
+[node name="Skeleton3D" parent="Armature" parent_id_path=PackedInt32Array(1638063006) index="0" unique_id=566168634]
+bones/1/rotation = Quaternion(0, 0.882948, 0.469472, 0)
+
+[node name="Cube_007" parent="Armature/Skeleton3D" index="0" unique_id=825496090]
+surface_material_override/0 = SubResource("StandardMaterial3D_tgeac")
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="Armature/Skeleton3D" index="1" unique_id=49566358]
-transform = Transform3D(-0.9999999, -9.036126e-25, -3.2886708e-24, -3.308722e-24, 0.49090362, 0.87121385, 8.271805e-25, 0.87121385, -0.4909035, -2.1511874e-24, 0.4001565, 2.9802322e-08)
+transform = Transform3D(-1, -1.1644489e-24, -3.2056093e-24, -3.3087225e-24, 0.55919254, 0.8290378, 8.271806e-25, 0.8290378, -0.55919254, -2.1511874e-24, 0.4001565, 2.9802322e-08)
 bone_name = "Bone.003"
 bone_idx = 1
 
@@ -28,23 +136,54 @@ bone_idx = 1
 transform = Transform3D(-1, 8.7422755e-08, 3.82137e-15, 0, -4.3711378e-08, 0.99999976, 8.742278e-08, 0.99999976, 4.3711378e-08, 0, 0, 0)
 skeleton3d = NodePath("../..")
 
-[node name="ThrottleValue" type="Label3D" parent="." index="10" unique_id=756906188]
+[node name="BoneAttachment3D" type="BoneAttachment3D" parent="Armature_001/Skeleton3D" parent_id_path=PackedInt32Array(1728777940) index="0" unique_id=818918525]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.13992268, 0)
+bone_name = "Bone.001"
+bone_idx = 1
+
+[node name="INTERACTABLE_Throttle" parent="Armature_001/Skeleton3D/BoneAttachment3D" index="0" unique_id=955374749 node_paths=PackedStringArray("skeleton3d") instance=ExtResource("2_88wu6")]
+skeleton3d = NodePath("../..")
+
+[node name="Cube_009" parent="Armature_001/Skeleton3D" parent_id_path=PackedInt32Array(1728777940) index="1" unique_id=33034317]
+surface_material_override/0 = SubResource("StandardMaterial3D_kdeec")
+surface_material_override/1 = SubResource("StandardMaterial3D_jx684")
+
+[node name="Debug" type="Node3D" parent="." index="15" unique_id=267541483]
+
+[node name="ThrottleValue" type="Label3D" parent="Debug" index="0" unique_id=756906188]
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0.675088, -0.6804815)
+visible = false
 modulate = Color(6.930828e-06, 0.7418971, 0.31971487, 1)
 text = "awd"
 font_size = 64
 outline_size = 2
 
-[node name="YokeAngleValue" type="Label3D" parent="." index="11" unique_id=781323102]
+[node name="YokeAngleValue" type="Label3D" parent="Debug" index="1" unique_id=781323102]
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0.7647452, -0.6804815)
+visible = false
 modulate = Color(6.930828e-06, 0.7418971, 0.31971487, 1)
 text = "awd"
 font_size = 64
 outline_size = 2
 
-[node name="YokecollumnAngleValue" type="Label3D" parent="." index="12" unique_id=729687349]
+[node name="YokecollumnAngleValue" type="Label3D" parent="Debug" index="2" unique_id=729687349]
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0.8561875, -0.6804815)
+visible = false
 modulate = Color(6.930828e-06, 0.7418971, 0.31971487, 1)
 text = "awd"
 font_size = 64
 outline_size = 2
+
+[node name="ThrottleManu" type="Node3D" parent="." index="16" unique_id=667286098]
+transform = Transform3D(1, 0, 0, 0, 0.7634206, 0.6459017, 0, -0.6459017, 0.7634206, -0.2765755, 0.37406126, -0.54001623)
+
+[node name="Label3D" type="Label3D" parent="ThrottleManu" index="0" unique_id=1407685295]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0.031495392, 0.0043842765, 7.729978e-10)
+modulate = Color(0.24313726, 1, 1, 1)
+text = "-35.0
+34
+12"
+font = ExtResource("8_rdatr")
+font_size = 64
+horizontal_alignment = 2
+line_spacing = -31.33

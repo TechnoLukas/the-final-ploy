@@ -15,9 +15,11 @@ albedo_color = Color(1, 0, 0, 1)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l3eon"]
 albedo_color = Color(1.92523e-07, 0.6486974, 0.13639057, 1)
 
-[node name="INTERACTABLE_Yoke" type="Area3D" unique_id=2144212103]
+[node name="INTERACTABLE_Yoke" type="Area3D" unique_id=2144212103 node_paths=PackedStringArray("yoke_idle_timer", "collumn_idle_timer")]
 script = ExtResource("1_h00jd")
 yoke_angle_limit = 35.0
+yoke_idle_timer = NodePath("yoke_idle_timer")
+collumn_idle_timer = NodePath("collumn_idle_timer")
 
 [node name="shape_3d" type="CSGBox3D" parent="." unique_id=942328773]
 transform = Transform3D(1, 0, 0, 0, 1.0000001, -1.4901161e-08, 0, 1.4901161e-08, 1.0000001, 0, 0, 0)
@@ -42,3 +44,8 @@ material = SubResource("StandardMaterial3D_yf1kl")
 [node name="CSGSphere3D2" type="CSGSphere3D" parent="." unique_id=1840230803]
 radius = 0.02
 material = SubResource("StandardMaterial3D_l3eon")
+
+[node name="yoke_idle_timer" type="Timer" parent="." unique_id=1980170917]
+wait_time = 0.001
+
+[node name="collumn_idle_timer" type="Timer" parent="." unique_id=1047408]

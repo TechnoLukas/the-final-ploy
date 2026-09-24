@@ -34,12 +34,27 @@ func _lefthand_grabbing(grabber_transform: Transform3D) -> void:
 	var yoke_target_pose_rot_raw = (initial_yoke_bone_pose_rot * yoke_y_rot_diff).normalized()
 	var yoke_rel_rot_from_rest = rest_yoke_pose_rot.inverse() * yoke_target_pose_rot_raw
 	var yoke_angle_raw = yoke_rel_rot_from_rest.get_angle() * yoke_rel_rot_from_rest.get_axis().dot(Vector3.RIGHT)
+	if abs(yoke_angle_raw) < 0.1: yoke_angle_raw = 0.0
 	var yoke_angle_clamped = clamp(yoke_angle_raw, deg_to_rad(-yoke_angle_limit), deg_to_rad(yoke_angle_limit))
 	var yoke_target_pose_rot_clamped = rest_yoke_pose_rot * Quaternion(Vector3.RIGHT, yoke_angle_clamped)
 	skeleton3d.set_bone_pose_rotation(bone_yoke_idx, yoke_target_pose_rot_clamped)	
 	
-	var throttle_value_mapped = clampf(remap(yoke_target_pose_rot_clamped.get_euler().x, deg_to_rad(-yoke_angle_limit), deg_to_rad(yoke_angle_limit), 1.0, -1.0), -1.0, 1.0)
-	owner.throttle_value = throttle_value_mapped
+	#var throttle_value_mapped = clampf(remap(yoke_target_pose_rot_clamped.get_euler().x, deg_to_rad(-yoke_angle_limit), deg_to_rad(yoke_angle_limit), 1.0, -1.0), -1.0, 1.0)
+	#var throttle_value_degrees = clampf(remap(deg_to_rad(yoke_target_pose_rot_clamped.get_euler().x), deg_to_rad(-yoke_angle_limit), deg_to_rad(yoke_angle_limit), 1.0, -1.0), -yoke_angle_limit, yoke_angle_limit)
+	owner.throttle_value = get_bone_rotation(bone_yoke_idx, rest_yoke_pose_rot, Vector3.RIGHT, yoke_angle_limit, true)
+	owner.throttle_value_degrees = get_bone_rotation(bone_yoke_idx, rest_yoke_pose_rot, Vector3.RIGHT, yoke_angle_limit, false)
+	
+func get_bone_rotation(bone_idx, rest_pose_rot, vector, angle_limit, is_normalised):
+	var bone_rot = rest_pose_rot.inverse() * skeleton3d.get_bone_pose_rotation(bone_idx)
+	var component = bone_rot.x if vector == Vector3.RIGHT else (bone_rot.y if vector == Vector3.UP else bone_rot.z)
+	var bone_mes = rad_to_deg(2.0 * atan2(component, bone_rot.w))
+	var bone_angle_value_mapped
+	if is_normalised:
+		bone_angle_value_mapped = clampf(remap(bone_mes, -angle_limit, angle_limit, 1.0, -1.0), -1.0, 1.0)
+	else:
+		bone_angle_value_mapped = clampf(remap(bone_mes, -angle_limit, angle_limit, angle_limit, -angle_limit), -angle_limit, angle_limit)
+	return bone_angle_value_mapped
+	
 		
 func _on_lefthand_release() -> void:
 	pass	
