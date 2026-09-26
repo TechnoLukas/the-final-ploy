@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://xmq4rem6jphs"]
+
+[ext_resource type="PackedScene" uid="uid://bkvxfmhc05xo7" path="res://assets/planet1-broken.blend" id="1_ptxdm"]
+[ext_resource type="Shader" uid="uid://fsxqhtm4jh8o" path="res://shaders/planet_universal.tres" id="2_hswtp"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_s5nsw"]
+frequency = 0.0405
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_m1hqn"]
+noise = SubResource("FastNoiseLite_s5nsw")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gqfam"]
+render_priority = 0
+shader = ExtResource("2_hswtp")
+shader_parameter/ColorParameter = Color(0.30357084, 5.3304807e-06, 0.22063789, 1)
+shader_parameter/ColorParameter2 = Color(0, 0, 0, 1)
+shader_parameter/Texture2DParameter = SubResource("NoiseTexture2D_m1hqn")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hswtp"]
+shading_mode = 0
+albedo_color = Color(1, 0.26474744, 0.20503694, 1)
+
+[node name="planet1-broken" unique_id=1504909734 instance=ExtResource("1_ptxdm")]
+
+[node name="Empty" parent="." index="0" unique_id=1395758173]
+visible = false
+
+[node name="Icosphere_cell_131" parent="." index="1" unique_id=491758429]
+surface_material_override/0 = SubResource("ShaderMaterial_gqfam")
+surface_material_override/1 = SubResource("StandardMaterial3D_hswtp")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." index="2" unique_id=425939104]
+light_color = Color(1, 0.26666668, 0.20392157, 1)
+omni_range = 50.0
+omni_attenuation = 0.3

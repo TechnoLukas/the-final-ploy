@@ -1,0 +1,29 @@
+[gd_resource type="VisualShader" format=3 uid="uid://t54bdno11yfy"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_l66q8"]
+frequency = 0.0301
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_id7jm"]
+noise = SubResource("FastNoiseLite_l66q8")
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_id7jm"]
+texture = SubResource("NoiseTexture2D_id7jm")
+
+[sub_resource type="VisualShaderNodeMix" id="VisualShaderNodeMix_id7jm"]
+default_input_values = [0, Vector3(0, 0, 0), 1, Vector3(1, 1, 1), 2, Vector3(0.5, 0.5, 0.5)]
+op_type = 3
+
+[sub_resource type="VisualShaderNodeColorConstant" id="VisualShaderNodeColorConstant_l66q8"]
+
+[sub_resource type="VisualShaderNodeColorConstant" id="VisualShaderNodeColorConstant_alkn3"]
+
+[resource]
+nodes/fragment/2/node = SubResource("VisualShaderNodeTexture_id7jm")
+nodes/fragment/2/position = Vector2(-280, 240)
+nodes/fragment/3/node = SubResource("VisualShaderNodeMix_id7jm")
+nodes/fragment/3/position = Vector2(146.66667, 106.666664)
+nodes/fragment/4/node = SubResource("VisualShaderNodeColorConstant_l66q8")
+nodes/fragment/4/position = Vector2(-253.33333, 13.333333)
+nodes/fragment/5/node = SubResource("VisualShaderNodeColorConstant_alkn3")
+nodes/fragment/5/position = Vector2(-253.33333, 120)
+nodes/fragment/connections = PackedInt32Array(2, 0, 0, 0, 2, 0, 3, 2, 4, 0, 3, 0, 5, 0, 3, 1)

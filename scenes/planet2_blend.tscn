@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://h0bjwy8vrfih"]
+
+[ext_resource type="PackedScene" uid="uid://dqpgigqhqn6io" path="res://assets/planet2.blend" id="1_ylfep"]
+[ext_resource type="Shader" uid="uid://fsxqhtm4jh8o" path="res://shaders/planet_universal.tres" id="2_ylfep"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ylfep"]
+frequency = 0.0128
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_xybdn"]
+noise = SubResource("FastNoiseLite_ylfep")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_74it4"]
+render_priority = 0
+shader = ExtResource("2_ylfep")
+shader_parameter/ColorParameter = Color(0.6999218, 0, 0.27899855, 1)
+shader_parameter/ColorParameter2 = Color(0.427474, 6.738305e-07, 1.4439226e-07, 1)
+shader_parameter/Texture2DParameter = SubResource("NoiseTexture2D_xybdn")
+
+[node name="planet2" unique_id=772176495 instance=ExtResource("1_ylfep")]
+
+[node name="Icosphere" parent="." index="0" unique_id=2116318992]
+surface_material_override/0 = SubResource("ShaderMaterial_74it4")

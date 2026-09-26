@@ -23,6 +23,7 @@ collumn_idle_timer = NodePath("collumn_idle_timer")
 
 [node name="shape_3d" type="CSGBox3D" parent="." unique_id=942328773]
 transform = Transform3D(1, 0, 0, 0, 1.0000001, -1.4901161e-08, 0, 1.4901161e-08, 1.0000001, 0, 0, 0)
+visible = false
 size = Vector3(0.2890625, 0.18273926, 0.061523438)
 material = SubResource("StandardMaterial3D_mia5v")
 

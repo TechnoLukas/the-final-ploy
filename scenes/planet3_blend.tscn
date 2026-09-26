@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://by8pw0p13eeh1"]
+
+[ext_resource type="PackedScene" uid="uid://c4jhknkrt8wa" path="res://assets/planet3.blend" id="1_57ved"]
+[ext_resource type="Shader" uid="uid://da51rmgdrgqwm" path="res://special_planet.tres" id="2_lc434"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0eb0k"]
+render_priority = 0
+shader = ExtResource("2_lc434")
+
+[node name="planet3" unique_id=1408338887 instance=ExtResource("1_57ved")]
+
+[node name="Icosphere_001" parent="." index="0" unique_id=492575849]
+surface_material_override/0 = SubResource("ShaderMaterial_0eb0k")

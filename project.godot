@@ -23,6 +23,9 @@ SetupXr="*uid://j651foxd661d"
 
 [display]
 
+window/size/viewport_width=4608
+window/size/viewport_height=2592
+window/size/mode=3
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
@@ -40,6 +43,8 @@ rendering_device/driver.windows="d3d12"
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
 textures/vram_compression/import_etc2_astc=true
+lights_and_shadows/positional_shadow/atlas_size=8192
+lights_and_shadows/positional_shadow/atlas_size.mobile=4096
 
 [xr]
 

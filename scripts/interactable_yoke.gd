@@ -26,6 +26,14 @@ var is_yoke_returning = false
 @export var collumn_idle_timer : Timer
 var is_collumn_returning = false
 
+var hand_grabbed = 0 # 1=left 2=right
+var is_righthand_grabbing = false
+var is_lefthand_grabbing = false
+var righthand_transform : Transform3D
+var lefthand_transform : Transform3D
+var local_grabber_transform # If there are 2 hands on the wheel, just one hand gets selected
+
+
 func _ready() -> void:
 	yoke_idle_timer.timeout.connect(_on_yoke_idle_timeout)
 	collumn_idle_timer.timeout.connect(_on_collumn_idle_timeout)
@@ -45,7 +53,7 @@ func _process(delta: float) -> void:
 		owner.yokecollumn_angle_value = -get_bone_rotation(bone_collumn_idx, rest_collumn_pose_rot, Vector3.RIGHT, collumn_angle_limit, true)
 		owner.yokecollumn_angle_value_degrees = -get_bone_rotation(bone_collumn_idx, rest_collumn_pose_rot, Vector3.RIGHT, collumn_angle_limit, false)
 
-func _on_righthand_grab(grabber_transform: Transform3D) -> void:
+func rotation_init(grabber_transform: Transform3D) -> void:
 	is_yoke_returning = false
 	is_collumn_returning = false
 	# YOKE ROTATION
@@ -68,7 +76,7 @@ func _on_righthand_grab(grabber_transform: Transform3D) -> void:
 	var collumn_proj_on_axis = initial_collumn2hand_dir_local.project(initial_collumn_bone_pose_rot * Vector3.RIGHT)
 	init_collumn2hand_proj = (initial_collumn2hand_dir_local - collumn_proj_on_axis).normalized()
 
-func _righthand_grabbing(grabber_transform: Transform3D) -> void:
+func rotation_process(grabber_transform: Transform3D) -> void:
 	is_yoke_returning = false
 	is_collumn_returning = false
 	# YOKE ROTATION
@@ -121,13 +129,6 @@ func _righthand_grabbing(grabber_transform: Transform3D) -> void:
 	
 	owner.yokecollumn_angle_value = -get_bone_rotation(bone_collumn_idx, rest_collumn_pose_rot, Vector3.RIGHT, collumn_angle_limit, true)
 	owner.yokecollumn_angle_value_degrees = -get_bone_rotation(bone_collumn_idx, rest_collumn_pose_rot, Vector3.RIGHT, collumn_angle_limit, false)
-
-
-#func get_bone_rotation(bone_idx, rest_pose_rot, vector, angle_limit):
-	#var bone_rot = rest_pose_rot.inverse() * skeleton3d.get_bone_pose_rotation(bone_idx)
-	#var bone_mes = rad_to_deg(bone_rot.get_angle() * bone_rot.get_axis().dot(vector))
-	#var bone_angle_value_mapped = clampf(remap(bone_mes, -angle_limit, angle_limit, 1.0, -1.0), -1.0, 1.0)
-	#return bone_angle_value_mapped
 	
 func get_bone_rotation(bone_idx, rest_pose_rot, vector, angle_limit, is_normalised):
 	var bone_rot = rest_pose_rot.inverse() * skeleton3d.get_bone_pose_rotation(bone_idx)
@@ -139,20 +140,51 @@ func get_bone_rotation(bone_idx, rest_pose_rot, vector, angle_limit, is_normalis
 	else:
 		bone_angle_value_mapped = clampf(remap(bone_mes, -angle_limit, angle_limit, angle_limit, -angle_limit), -angle_limit, angle_limit)
 	return bone_angle_value_mapped
-	
+
+func _on_righthand_grab(grabber_transform: Transform3D) -> void:
+	is_righthand_grabbing = true
+	if hand_grabbed == 0: # no hands selected
+		hand_grabbed = 2
+		rotation_init(grabber_transform)
+
+func _righthand_grabbing(grabber_transform: Transform3D) -> void:
+	righthand_transform = grabber_transform
+	if hand_grabbed == 2:
+		rotation_process(grabber_transform)
 
 func _on_righthand_release() -> void:
-	yoke_idle_timer.start()
-	collumn_idle_timer.start()
+	is_righthand_grabbing = false
+	if hand_grabbed == 2:
+		if is_lefthand_grabbing:
+			hand_grabbed = 1
+			rotation_init(lefthand_transform)
+		else:
+			yoke_idle_timer.start()
+			collumn_idle_timer.start()
+			hand_grabbed = 0
 	
 func _on_lefthand_grab(grabber_transform: Transform3D) -> void:
-	_on_righthand_grab(grabber_transform)
+	is_lefthand_grabbing = true
+	if hand_grabbed == 0: # no hands selected
+		hand_grabbed = 1
+		local_grabber_transform = grabber_transform
+		rotation_init(local_grabber_transform)
 	
 func _lefthand_grabbing(grabber_transform: Transform3D) -> void:
-	_righthand_grabbing(grabber_transform)
+	lefthand_transform = grabber_transform
+	if hand_grabbed == 1:
+		rotation_process(grabber_transform)
 		
 func _on_lefthand_release() -> void:
-	_on_righthand_release()
+	is_lefthand_grabbing = false
+	if hand_grabbed == 1:
+		if is_righthand_grabbing:
+			hand_grabbed = 2
+			rotation_init(righthand_transform)
+		else:
+			yoke_idle_timer.start()
+			collumn_idle_timer.start()
+			hand_grabbed = 0
 	
 func _on_yoke_idle_timeout() -> void:
 	is_yoke_returning = true
