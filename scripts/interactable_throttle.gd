@@ -71,5 +71,9 @@ func _on_righthand_release() -> void:
 	pass
 
 
+func _on_righthand_pressed() -> void:
+	pass
 
+func _on_lefthand_pressed() -> void:
+	pass
 	

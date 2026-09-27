@@ -11,11 +11,12 @@ extends Node3D
 @export var altitude_indicator_roll : Node3D
 @export var alind_pitch_value : float
 
+@export var sosbuttonshield_value_degrees : float
+
 @onready var engine_sound = $Sound/AudioStreamPlayer3D
 @onready var engine_sound2 = $Sound/AudioStreamPlayer3D2
 @onready var engine_sound3 = $Sound/AudioStreamPlayer3D3
 
-@export_group("Transition Settings")
 @export var change_interval: float = 0.4
 @export var lerp_speed: float = 4.0
 @onready var min_linear: float = db_to_linear(-40.0)
@@ -25,6 +26,17 @@ var target_volume: float = min_linear
 var current_volume: float = min_linear
 var timer: float = 0.0
 
+@export var sosbutton_shield : MeshInstance3D
+@export var sosbutton : MeshInstance3D
+@export var availabe_material : StandardMaterial3D
+@export var unavailable_material : StandardMaterial3D
+@export var sosbutton_shield_transparency = 0.53
+@export var lable_available : Label3D
+@export var lable_unavailable : Label3D
+
+@export var is_sos_available = false
+
+@export var button_click_sound : AudioStreamPlayer3D
 
 func _ready() -> void:
 	current_volume = randf_range(min_linear, max_linear)
@@ -34,6 +46,8 @@ func _ready() -> void:
 	engine_sound2.play()
 	engine_sound3.play()
 	#SetupXr.xr_interface.session_begun.connect(_on_xr_session_begun)
+	
+	deactivate_sos_button()
 
 func _enter_tree() -> void:
 	pass
@@ -46,6 +60,8 @@ func _process(delta: float) -> void:
 	altitude_indicator_pitch.position.y = yokecollumn_angle_value * alind_pitch_value
 	altitude_indicator_roll.rotation_degrees.z = yoke_angle_value_degrees
 	
+	#print(sosbuttonshield_value_degrees)
+	#$Debug/ThrottleValue.text = str(sosbuttonshield_value_degrees)
 	
 	timer -= delta
 	
@@ -57,4 +73,26 @@ func _process(delta: float) -> void:
 	engine_sound.volume_db = linear_to_db(max(current_volume, 0.0001))
 	engine_sound.pitch_scale =  max(abs(throttle_value), 0.001) * 2.0
 	engine_sound2.pitch_scale =  max(abs(throttle_value), 0.001) * 0.9
-	engine_sound3.pitch_scale =  max(abs(minf(yoke_angle_value + yokecollumn_angle_value, 1.0)), 0.001) * 0.6
+	engine_sound3.pitch_scale =  max(minf(abs(yoke_angle_value)*0.5 + abs(yokecollumn_angle_value)*0.5, 1.0), 0.001) * 0.6
+	
+func activate_sos_button():
+	is_sos_available = true
+	sosbutton.set_surface_override_material(0,availabe_material)
+	var transp_material = availabe_material.duplicate()
+	transp_material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	transp_material.albedo_color.a = sosbutton_shield_transparency
+	sosbutton_shield.set_surface_override_material(0,transp_material)
+	lable_available.visible = true
+	lable_unavailable.visible = false
+	
+	
+func deactivate_sos_button():
+	is_sos_available = false
+	sosbutton.set_surface_override_material(0,unavailable_material)
+	var transp_material = unavailable_material.duplicate()
+	transp_material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	transp_material.albedo_color.a = sosbutton_shield_transparency
+	sosbutton_shield.set_surface_override_material(0,transp_material)
+	lable_available.visible = false
+	lable_unavailable.visible = true
+	

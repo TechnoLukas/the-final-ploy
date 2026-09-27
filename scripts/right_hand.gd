@@ -8,6 +8,7 @@ extends XRNode3D
 
 var is_grabbed = false
 var obj_grabbed
+var current_pose = ""
 
 func _ready():
 	hand_pose_detector.pose_started.connect(_on_hand_pose_detected)
@@ -20,6 +21,7 @@ func _process(delta: float) -> void:
 
 func _on_hand_pose_detected(pose_name: String):
 	if pose_name == "Fist":
+		current_pose = "Fist"
 		print("Right Hand Fist")
 		print(hand_fist_area.get_overlapping_areas())
 		var interactable 
@@ -33,6 +35,7 @@ func _on_hand_pose_detected(pose_name: String):
 
 func _on_hand_pose_released(pose_name: String):
 	if pose_name == "Fist":
+		current_pose = ""
 		print("Right Hand Released Fist")
 		if is_grabbed:
 			is_grabbed = false
@@ -44,3 +47,11 @@ func obj_released(area: Area3D):
 		is_grabbed = false
 		obj_grabbed._on_righthand_release()
 		obj_grabbed = null
+	if "INTERACTABLE" in area.name:
+		if current_pose == "Fist":
+			area._on_righthand_release()
+		
+func obj_pressed(area: Area3D):
+	if "INTERACTABLE" in area.name:
+		if current_pose == "Fist":
+			area._on_righthand_pressed()

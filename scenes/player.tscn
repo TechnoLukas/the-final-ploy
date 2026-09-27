@@ -43,6 +43,10 @@ radius = 0.02
 height = 0.04
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_y4r1p"]
+resource_local_to_scene = false
+resource_name = ""
+custom_solver_bias = 0.0
+margin = 0.04
 size = Vector3(0.07, 0.07, 0.06)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y4r1p"]
@@ -75,10 +79,15 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Label" type="Label" parent="XRCamera3D/MeshInstance3D/SubViewport/HBoxContainer" unique_id=1013966430]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Hi console"
+
+[node name="AudioListener3D" type="AudioListener3D" parent="XRCamera3D" unique_id=1941162828]
+doppler_tracking = 1
+current = true
 
 [node name="right" type="XRNode3D" parent="." unique_id=1314809043 node_paths=PackedStringArray("hand_fist_area")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.382, 0, 0)
@@ -178,7 +187,7 @@ shape = SubResource("CapsuleShape3D_qfm1y")
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="left/LeftHandHumanoid2/LeftHandHumanoid/Skeleton3D" parent_id_path=PackedInt32Array(1331927910, 982471709) index="3" unique_id=615949696]
 transform = Transform3D(1.7881392e-07, -1.838803e-05, 0.99999994, -0.9999985, 0.0016677376, 1.7881392e-07, -0.0016676484, -0.99999833, -1.8358229e-05, 3.8642522e-08, -1.8697472e-05, 0.027175574)
-bone_name = "RightHand"
+bone_name = "LeftHand"
 bone_idx = 0
 
 [node name="ShapeCast3D2" type="ShapeCast3D" parent="left/LeftHandHumanoid2/LeftHandHumanoid/Skeleton3D/BoneAttachment3D" unique_id=82779417]
@@ -192,13 +201,13 @@ debug_shape_custom_color = Color(1, 1, 1, 1)
 
 [node name="FistArea2" type="Area3D" parent="left/LeftHandHumanoid2/LeftHandHumanoid/Skeleton3D/BoneAttachment3D" unique_id=156665735]
 
-[node name="CSGBox3D" type="CSGBox3D" parent="left/LeftHandHumanoid2/LeftHandHumanoid/Skeleton3D/BoneAttachment3D/FistArea2" unique_id=1380933551]
+[node name="CSGBox3D2" type="CSGBox3D" parent="left/LeftHandHumanoid2/LeftHandHumanoid/Skeleton3D/BoneAttachment3D/FistArea2" unique_id=1880764765]
 transform = Transform3D(1, 0, -3.5527137e-15, 0, 1, 0, 0, 0, 1, 2.3646862e-11, 0.075, 0.02000004)
 visible = false
 material_override = SubResource("StandardMaterial3D_y4r1p")
 size = Vector3(0.07, 0.07, 0.06)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="left/LeftHandHumanoid2/LeftHandHumanoid/Skeleton3D/BoneAttachment3D/FistArea2" unique_id=86933996]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="left/LeftHandHumanoid2/LeftHandHumanoid/Skeleton3D/BoneAttachment3D/FistArea2" unique_id=523982449]
 transform = Transform3D(1, 0, -3.5527137e-15, 0, 1, 0, 0, 0, 1, 2.3646862e-11, 0.075, 0.02000004)
 shape = SubResource("ConvexPolygonShape3D_d2wvv")
 

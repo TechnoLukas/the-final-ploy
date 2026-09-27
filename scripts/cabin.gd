@@ -14,11 +14,11 @@ func _process(delta: float) -> void:
 	throttle = cabin_interactive_values.throttle_value
 	steering_angle = -cabin_interactive_values.yoke_angle_value
 	var pitch_input = cabin_interactive_values.yokecollumn_angle_value # Value from -1.0 to 1.0
-	print(pitch_input)
 
 	# 1. Update yaw incrementally
 	var multiplier = -1.0 if throttle < 0 else 1.0
 	var current_turn_rate = turn_speed * (steering_angle * multiplier)
+	rotate_y(current_turn_rate * delta)
 
 	# 2. Extract current heading (yaw)
 	var current_yaw = rotation.y
@@ -34,3 +34,9 @@ func _process(delta: float) -> void:
 	# 5. Translate forward along local Z
 	var forward = -transform.basis.z
 	global_position += forward * throttle * max_speed * delta
+	
+func _on_sosbeacon_area_entered():
+	cabin_interactive_values.activate_sos_button()
+	
+func _on_sosbeacon_area_exited():
+	cabin_interactive_values.deactivate_sos_button()
