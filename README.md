@@ -45,11 +45,9 @@ Look & Listen to your navigator (on your right), it will show you the dot (it is
 
 ![](./screenshots/Cockpit.png)
 
-| ![](./screenshots/beacon.gif)  |  ![](./screenshots/Radar.gif)    |
+| ![](./screenshots/beacon.gif)                  | ![](./screenshots/Radar1.png)                    |
 | ---------------------------------------------- | ------------------------------------------------ |
 | ![](./screenshots/SosAvailable_screenshot.png) | ![](./screenshots/SosUnavailable_screenshot.png) |
-
-![](./screenshots/beacon.gif) 
 
 ![](./screenshots/Planets1.png) 
 
