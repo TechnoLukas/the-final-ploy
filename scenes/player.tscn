@@ -5,6 +5,7 @@
 [ext_resource type="Shader" uid="uid://dlwkxsnv1liw6" path="res://shaders/viewport_ui.gdshader" id="2_d2wvv"]
 [ext_resource type="Script" uid="uid://by434t17106ou" path="res://addons/hand_pose_detector/hand_pose_action.gd" id="2_ur7pv"]
 [ext_resource type="Script" uid="uid://dd00v7brfg7t4" path="res://scripts/right_hand.gd" id="2_y4r1p"]
+[ext_resource type="FontFile" uid="uid://288likiruhul" path="res://assets/Quantico/Quantico-Regular.ttf" id="3_jej6c"]
 [ext_resource type="Resource" uid="uid://dhbqusuodrl3r" path="res://addons/hand_pose_detector/poses/fist.tres" id="3_y4r1p"]
 [ext_resource type="Script" uid="uid://cmyxeshkakwd8" path="res://addons/hand_pose_detector/hand_pose_action_map.gd" id="4_d2wvv"]
 [ext_resource type="Resource" uid="uid://ckjd0xa2a240p" path="res://addons/hand_pose_detector/poses/standard_pose_set.tres" id="5_3v2ag"]
@@ -26,6 +27,11 @@ shader_parameter/tex = SubResource("ViewportTexture_d2wvv")
 resource_local_to_scene = true
 material = SubResource("ShaderMaterial_3v2ag")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3v2ag"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 0.2627451)
+
 [sub_resource type="Resource" id="Resource_31oly"]
 script = ExtResource("2_ur7pv")
 pose = ExtResource("3_y4r1p")
@@ -43,10 +49,6 @@ radius = 0.02
 height = 0.04
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_y4r1p"]
-resource_local_to_scene = false
-resource_name = ""
-custom_solver_bias = 0.0
-margin = 0.04
 size = Vector3(0.07, 0.07, 0.06)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y4r1p"]
@@ -70,17 +72,19 @@ mesh = SubResource("QuadMesh_y4r1p")
 transparent_bg = true
 render_target_update_mode = 4
 
-[node name="HBoxContainer" type="VBoxContainer" parent="XRCamera3D/MeshInstance3D/SubViewport" unique_id=219457079]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = 204.0
+[node name="Label" type="Label" parent="XRCamera3D/MeshInstance3D/SubViewport" unique_id=1013966430]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -358.0
+offset_top = -11.5
+offset_right = 358.0
+offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="Label" type="Label" parent="XRCamera3D/MeshInstance3D/SubViewport/HBoxContainer" unique_id=1013966430]
-visible = false
-layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Hi console"
@@ -88,6 +92,36 @@ text = "Hi console"
 [node name="AudioListener3D" type="AudioListener3D" parent="XRCamera3D" unique_id=1941162828]
 doppler_tracking = 1
 current = true
+
+[node name="Succees_notification" type="CSGBox3D" parent="XRCamera3D" unique_id=1460302995]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0.020551145, -0.3175448)
+visible = false
+size = Vector3(1.6679688, 0.7246094, 0.03125)
+material = SubResource("StandardMaterial3D_3v2ag")
+
+[node name="Label3D" type="Label3D" parent="XRCamera3D/Succees_notification" unique_id=591272022]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.020551145, 0.03099209)
+text = "SOS Sent!
+You succeeded. 
+⠀
+.. game will restart .."
+font = ExtResource("3_jej6c")
+line_spacing = -14.215
+
+[node name="Fail_notification" type="CSGBox3D" parent="XRCamera3D" unique_id=379588959]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0.020551145, -0.3175448)
+visible = false
+size = Vector3(1.6679688, 0.7246094, 0.03125)
+material = SubResource("StandardMaterial3D_3v2ag")
+
+[node name="Label3D" type="Label3D" parent="XRCamera3D/Fail_notification" unique_id=2116411366]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.020551145, 0.03099209)
+text = "You hit the debris..
+failed... 
+⠀
+.. game will restart .."
+font = ExtResource("3_jej6c")
+line_spacing = -14.215
 
 [node name="right" type="XRNode3D" parent="." unique_id=1314809043 node_paths=PackedStringArray("hand_fist_area")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.382, 0, 0)

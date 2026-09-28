@@ -22,45 +22,38 @@ background_mode = 2
 sky = SubResource("Sky_dg77c")
 ambient_light_source = 1
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_trceg"]
+radius = 3.888
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_eb6dy"]
+radius = 3.57
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_31oly"]
+radius = 2.9445994
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_85g3d"]
+radius = 2.9445994
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_choun"]
+radius = 2.65
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ya4ey"]
+radius = 3.5945218
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_85g3d"]
+radius = 1.0
+height = 5.396
+
 [node name="Main" type="Node3D" unique_id=1368563020]
 
-[node name="Cabin" parent="." unique_id=148396708 instance=ExtResource("1_0wfyh")]
+[node name="Cabin" parent="." unique_id=148396708 node_paths=PackedStringArray("sosbeacon") instance=ExtResource("1_0wfyh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00088340044, -0.0009270683, 0.0004836321)
+sosbeacon = NodePath("../sosbeacon")
 
 [node name="start_xr" type="Node" parent="." unique_id=1322679981]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=284404454]
 environment = SubResource("Environment_tbgi4")
-
-[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=819996530]
-transform = Transform3D(0.23971575, 0.0736127, 0.16467403, -0.13025823, 0.26010233, 0.0733456, -0.12477643, -0.13010748, 0.2397976, 1.2375393, 0.43333247, -0.20013171)
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="." unique_id=1726047733]
-transform = Transform3D(0.06147556, 0.011551075, 0.29340643, -0.18610081, 0.23340572, 0.029803606, -0.22712824, -0.18811795, 0.054994687, 1.2375393, 0.1224958, -1.1222832)
-
-[node name="CSGBox3D8" type="CSGBox3D" parent="." unique_id=601251157]
-transform = Transform3D(0.06147556, 0.011551075, 0.29340643, -0.18610081, 0.23340572, 0.029803606, -0.22712824, -0.18811795, 0.054994687, 1.2375393, 0.1224958, -5.272414)
-
-[node name="CSGBox3D3" type="CSGBox3D" parent="." unique_id=143749226]
-transform = Transform3D(-0.012445342, 0.028177537, -0.29841438, -0.18623845, 0.23329693, 0.029795926, 0.2348624, 0.18649021, 0.0078142695, -0.745, 0.523, -1.343)
-
-[node name="CSGBox3D6" type="CSGBox3D" parent="." unique_id=415187739]
-transform = Transform3D(-0.012445342, 0.028177537, -0.29841438, -0.18623845, 0.23329693, 0.029795926, 0.2348624, 0.18649021, 0.0078142695, 0.89101005, 0.523, -3.0731022)
-
-[node name="CSGBox3D7" type="CSGBox3D" parent="." unique_id=1171533883]
-transform = Transform3D(-0.012445342, 0.028177537, -0.29841438, -0.18623845, 0.23329693, 0.029795926, 0.2348624, 0.18649021, 0.0078142695, -0.7113091, 0.523, -3.7423942)
-
-[node name="CSGBox3D4" type="CSGBox3D" parent="." unique_id=1988850011]
-transform = Transform3D(-0.175859, 0.21687634, 0.10971904, 0.062555954, -0.090476975, 0.2791069, 0.2348624, 0.18649018, 0.007814268, -0.745, -0.24374044, -2.013198)
-
-[node name="CSGBox3D5" type="CSGBox3D" parent="." unique_id=1366355979]
-transform = Transform3D(-0.175859, 0.21687634, 0.10971904, 0.062555954, -0.090476975, 0.2791069, 0.2348624, 0.18649018, 0.007814268, -0.745, -0.24374044, -2.013198)
-
-[node name="CSGBox3D9" type="CSGBox3D" parent="." unique_id=280849541]
-transform = Transform3D(-0.175859, 0.21687634, 0.10971904, 0.062555954, -0.090476975, 0.2791069, 0.2348624, 0.18649018, 0.007814268, -0.745, -0.24374044, -5.7085295)
-
-[node name="CSGBox3D10" type="CSGBox3D" parent="." unique_id=1288322659]
-transform = Transform3D(-0.175859, 0.21687634, 0.10971904, 0.062555954, -0.090476975, 0.2791069, 0.2348624, 0.18649018, 0.007814268, -0.745, -0.24374044, -5.7085295)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=703549068]
 transform = Transform3D(0.70710677, 0.49999997, -0.49999997, 0, 0.70710677, 0.70710677, 0.70710677, -0.49999997, 0.49999997, 0, 0, 0)
@@ -70,14 +63,61 @@ light_energy = 0.1
 [node name="planet1" parent="." unique_id=2006807474 instance=ExtResource("3_jyhfs")]
 transform = Transform3D(1.635, 0, 0, 0, 1.635, 0, 0, 0, 1.635, 52.399082, 0, -82.16232)
 
+[node name="OBSTACLE" type="Area3D" parent="planet1" unique_id=2013463963]
+
+[node name="Rock" type="CollisionShape3D" parent="planet1/OBSTACLE" unique_id=1277899290]
+shape = SubResource("SphereShape3D_trceg")
+
+[node name="planet7" parent="." unique_id=1041708013 instance=ExtResource("3_jyhfs")]
+transform = Transform3D(1.110742, 0, 6.5413666, 0, 6.635, 0, -6.5413666, 0, 1.110742, -56.415943, 47.750683, 49.8606)
+
+[node name="OBSTACLE" type="Area3D" parent="planet7" unique_id=2112639294]
+
+[node name="Rock" type="CollisionShape3D" parent="planet7/OBSTACLE" unique_id=2007432703]
+shape = SubResource("SphereShape3D_eb6dy")
+
 [node name="planet2" parent="." unique_id=772176495 instance=ExtResource("4_jyhfs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.490723, -15.9617195, -66.635605)
+
+[node name="OBSTACLE" type="Area3D" parent="planet2" unique_id=1598813175]
+
+[node name="Rock" type="CollisionShape3D" parent="planet2/OBSTACLE" unique_id=954832445]
+shape = SubResource("SphereShape3D_31oly")
+
+[node name="planet9" parent="." unique_id=931452058 instance=ExtResource("4_jyhfs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.490723, 41.464443, 74.959946)
+
+[node name="OBSTACLE" type="Area3D" parent="planet9" unique_id=359246876]
+
+[node name="Rock" type="CollisionShape3D" parent="planet9/OBSTACLE" unique_id=1534799256]
+shape = SubResource("SphereShape3D_31oly")
+
+[node name="planet8" parent="." unique_id=191128952 instance=ExtResource("4_jyhfs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.490723, 42.94782, -120.894196)
+
+[node name="OBSTACLE" type="Area3D" parent="planet8" unique_id=138810199]
+
+[node name="Rock" type="CollisionShape3D" parent="planet8/OBSTACLE" unique_id=653324697]
+shape = SubResource("SphereShape3D_85g3d")
 
 [node name="planet3" parent="." unique_id=965940057 instance=ExtResource("4_jyhfs")]
 transform = Transform3D(0.41755086, 0.44560048, -0.7918911, -0.90865356, 0.20476545, -0.36389536, 0, 0.8714995, 0.49039644, 47.75843, 20.38977, 23.827019)
 
+[node name="OBSTACLE" type="Area3D" parent="planet3" unique_id=63885536]
+
+[node name="Rock" type="CollisionShape3D" parent="planet3/OBSTACLE" unique_id=306207635]
+shape = SubResource("SphereShape3D_31oly")
+
 [node name="planet4" parent="." unique_id=1260606604 instance=ExtResource("4_jyhfs")]
 transform = Transform3D(0.31702998, 0.47076046, -0.82333267, -0.9468373, 0.20716107, -0.24613693, 0.054690998, 0.85759485, 0.5114098, -56.23859, 20.38977, 2.132639)
+
+[node name="OBSTACLE" type="Area3D" parent="planet4" unique_id=30782465]
+
+[node name="Rock" type="CollisionShape3D" parent="planet4/OBSTACLE" unique_id=1559051821]
+shape = SubResource("SphereShape3D_31oly")
+
+[node name="planet10" parent="." unique_id=616494847 instance=ExtResource("4_jyhfs")]
+transform = Transform3D(0.31702998, 0.47076046, -0.82333267, -0.9468373, 0.20716107, -0.24613693, 0.054690998, 0.85759485, 0.5114098, -92.87848, 20.38977, 62.322327)
 
 [node name="planet5" parent="." unique_id=1408338887 instance=ExtResource("5_tbgi4")]
 transform = Transform3D(2.8790054, 0.84340215, 0, -0.8405774, 2.869363, -0.24532506, -0.068969235, 0.23543075, 2.9899528, -21.51566, 38.253326, -93.464645)
@@ -373,8 +413,32 @@ transform = Transform3D(-0.9547598, 0, 0.297378, 0, 1, 0, -0.297378, 0, -0.95475
 [node name="planet6" parent="planet5/Node3D49/Node3D48" unique_id=1748899121 instance=ExtResource("6_tefeu")]
 transform = Transform3D(0.008874162, 0.05039101, 0.015837265, 0.025667083, -0.019337632, 0.03798154, 0.029367503, 0.0016740486, -0.037981357, -0.2135911, -0.06186676, 5.9794674)
 
+[node name="OBSTACLE" type="Area3D" parent="planet5" unique_id=1809413767]
+
+[node name="Rock" type="CollisionShape3D" parent="planet5/OBSTACLE" unique_id=856451331]
+shape = SubResource("SphereShape3D_85g3d")
+
+[node name="planet6" parent="." unique_id=1524826111 instance=ExtResource("5_tbgi4")]
+transform = Transform3D(-4.6081023, 2.0968163, -0.27139977, -2.1110923, -4.598908, 0.31342432, -0.116558045, 0.39787793, 5.05302, 102.54562, 38.253326, 29.145512)
+
+[node name="OBSTACLE" type="Area3D" parent="planet6" unique_id=213261285]
+
+[node name="Rock" type="CollisionShape3D" parent="planet6/OBSTACLE" unique_id=1826604759]
+shape = SubResource("SphereShape3D_choun")
+
 [node name="planet1-broken" parent="." unique_id=1504909734 instance=ExtResource("8_tipki")]
-transform = Transform3D(-3.423674, 0.47125816, 2.0140429, 1.0292606, 3.7665133, 0.8683294, -1.7941779, 1.2614632, -3.3450909, 75.85712, 26.91063, -40.308083)
+transform = Transform3D(-3.423674, 0.47125816, 2.0140429, 1.0292606, 3.7665133, 0.8683294, -1.7941779, 1.2614632, -3.3450909, 72.553856, 26.910633, -25.406286)
+
+[node name="OBSTACLE" type="Area3D" parent="planet1-broken" unique_id=549545203]
+
+[node name="Rock" type="CollisionShape3D" parent="planet1-broken/OBSTACLE" unique_id=945760683]
+shape = SubResource("SphereShape3D_ya4ey")
+
+[node name="OBSTACLE2" type="Area3D" parent="planet1-broken" unique_id=1734809506]
+
+[node name="Rock" type="CollisionShape3D" parent="planet1-broken/OBSTACLE2" unique_id=220666946]
+transform = Transform3D(0.7808692, 0.41260272, -0.46904433, -0.5778744, 0.19189855, -0.7932453, -0.23728636, 0.89046854, 0.38827986, -2.659111, 1.2054224, -3.1727037)
+shape = SubResource("CapsuleShape3D_85g3d")
 
 [node name="sosbeacon" parent="." unique_id=1292757183 instance=ExtResource("9_85g3d")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.006635189, 4.7683716e-07, -26.442955)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 82.36001, 25.488129, -18.515131)

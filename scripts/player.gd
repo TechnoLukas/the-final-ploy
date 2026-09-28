@@ -8,6 +8,9 @@ func _ready() -> void:
 	if SetupXr.xr_interface:
 		SetupXr.xr_interface.pose_recentered.connect(recenter)
 	recenter()
+	
+	SetupXr._on_end_success.connect(_on_end_success)
+	SetupXr._on_end_fail.connect(_on_end_fail)
 
 func recenter() -> void:
 	if not target_object or not xr_camera:
@@ -33,3 +36,13 @@ func recenter() -> void:
 	
 	var height_diff := target_object.global_position.y - xr_camera.global_position.y
 	global_position.y += height_diff
+	
+func _on_end_success():
+	$XRCamera3D/Succees_notification.visible = true
+	await get_tree().create_timer(4.0).timeout
+	$XRCamera3D/Succees_notification.visible = false
+	
+func _on_end_fail():
+	$XRCamera3D/Fail_notification.visible = true
+	await get_tree().create_timer(4.0).timeout
+	$XRCamera3D/Fail_notification.visible = false

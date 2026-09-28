@@ -11,6 +11,13 @@ var init_yoke2hand_proj : Vector3
 @export var yoke_angle_limit_min : float = 45.0
 @export var yoke_angle_limit_max : float = 45.0
 
+func _ready() -> void:
+	SetupXr._on_game_reset.connect(_on_game_reset)
+	
+	
+func _on_game_reset():
+	skeleton3d.set_bone_pose_rotation(bone_yoke_idx, rest_yoke_pose_rot)
+
 func _on_lefthand_grab(grabber_transform: Transform3D) -> void:
 	# YOKE ROTATION
 	initial_yoke_bone_pose_rot = skeleton3d.get_bone_pose_rotation(bone_yoke_idx)
@@ -75,4 +82,6 @@ func _on_righthand_pressed() -> void:
 
 func _on_lefthand_pressed() -> void:
 	pass
+	
+
 	

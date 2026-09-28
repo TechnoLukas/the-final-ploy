@@ -35,7 +35,10 @@ func _on_righthand_pressed() -> void:
 	pass
 
 func _on_lefthand_pressed() -> void:
-	if owner.sosbuttonshield_value_degrees > 40 and owner.is_sos_available:
-		is_pressing = true
-		owner.button_click_sound.playing = true
-	
+	if owner.sosbuttonshield_value_degrees > 40:
+		if owner.is_sos_available:
+			is_pressing = true
+			owner._on_sosbutton_succeeded()
+		else:
+			owner._on_sosbutton_failed()
+		

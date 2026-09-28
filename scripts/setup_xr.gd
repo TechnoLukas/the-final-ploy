@@ -1,5 +1,11 @@
 extends Node
 
+signal _on_end_success
+
+signal _on_end_fail
+
+signal _on_game_reset
+
 var xr_interface: XRInterface
 
 func recenter():

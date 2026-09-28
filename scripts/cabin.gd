@@ -10,6 +10,11 @@ extends Node3D
 var throttle: float = 0.0
 var steering_angle: float = 0.0
 
+@export var sosbeacon : Node3D
+
+func _ready() -> void:
+	SetupXr._on_game_reset.connect(_on_game_reset)
+
 func _process(delta: float) -> void:
 	throttle = cabin_interactive_values.throttle_value
 	steering_angle = -cabin_interactive_values.yoke_angle_value
@@ -40,3 +45,17 @@ func _on_sosbeacon_area_entered():
 	
 func _on_sosbeacon_area_exited():
 	cabin_interactive_values.deactivate_sos_button()
+	
+func _on_game_reset():
+	global_position = Vector3.ZERO
+	global_rotation = Vector3.ZERO
+	
+
+
+func _on_collision_shape_3d_child_entered_tree(node: Node) -> void:
+	print("AHH")
+
+
+func _on_player_area_entered(area: Area3D) -> void:
+	if "OBSTACLE" in area.name:
+		SetupXr._on_end_fail.emit()

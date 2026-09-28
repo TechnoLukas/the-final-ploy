@@ -51,3 +51,5 @@ shape = SubResource("ConcavePolygonShape3D_84mq0")
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, -0.22963452, -0.11507794)
 visible = false
 mesh = SubResource("CapsuleMesh_31oly")
+
+[connection signal="area_entered" from="PLAYER" to="." method="_on_player_area_entered"]

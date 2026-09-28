@@ -4,8 +4,6 @@ extends XRNode3D
 @onready var hand_pose_detector = $HandPoseDetector
 @export var hand_fist_area : Area3D
 
-@onready var log_list = $"../XRCamera3D/MeshInstance3D/SubViewport/HBoxContainer"
-
 var is_grabbed = false
 var obj_grabbed
 var current_pose = ""
