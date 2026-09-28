@@ -1,0 +1,47 @@
+[gd_resource type="VisualShader" format=3 uid="uid://8snwqemcj48x"]
+
+[sub_resource type="Gradient" id="Gradient_ye4l6"]
+offsets = PackedFloat32Array(0.575, 0.60625)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ye4l6"]
+gradient = SubResource("Gradient_ye4l6")
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_2vdor"]
+texture = SubResource("GradientTexture1D_ye4l6")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_1xo7w"]
+noise_type = 4
+frequency = 0.175
+fractal_type = 2
+cellular_distance_function = 3
+cellular_return_type = 4
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_80sj2"]
+noise = SubResource("FastNoiseLite_1xo7w")
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_80sj2"]
+texture = SubResource("NoiseTexture2D_80sj2")
+
+[sub_resource type="VisualShaderNodeColorConstant" id="VisualShaderNodeColorConstant_ye4l6"]
+constant = Color(0.2430025, 0, 0.047252707, 1)
+
+[sub_resource type="VisualShaderNodeColorConstant" id="VisualShaderNodeColorConstant_2vdor"]
+constant = Color(0.21960784, 0, 0.039215688, 1)
+
+[sub_resource type="VisualShaderNodeMix" id="VisualShaderNodeMix_80sj2"]
+default_input_values = [0, Vector3(0, 0, 0), 1, Vector3(1, 1, 1), 2, Vector3(0.5, 0.5, 0.5)]
+op_type = 3
+
+[resource]
+nodes/fragment/0/position = Vector2(573.3333, 146.66667)
+nodes/fragment/2/node = SubResource("VisualShaderNodeTexture_2vdor")
+nodes/fragment/2/position = Vector2(-306.66666, 146.66667)
+nodes/fragment/3/node = SubResource("VisualShaderNodeTexture_80sj2")
+nodes/fragment/3/position = Vector2(-613.3333, 133.33333)
+nodes/fragment/4/node = SubResource("VisualShaderNodeColorConstant_ye4l6")
+nodes/fragment/4/position = Vector2(-186.66667, 453.33334)
+nodes/fragment/7/node = SubResource("VisualShaderNodeColorConstant_2vdor")
+nodes/fragment/7/position = Vector2(-186.66667, 573.3333)
+nodes/fragment/8/node = SubResource("VisualShaderNodeMix_80sj2")
+nodes/fragment/8/position = Vector2(119.55695, 373.95834)
+nodes/fragment/connections = PackedInt32Array(3, 0, 2, 0, 4, 0, 8, 1, 8, 0, 0, 0, 2, 0, 8, 2, 7, 0, 8, 0)

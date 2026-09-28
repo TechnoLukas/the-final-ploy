@@ -1,0 +1,249 @@
+[gd_scene format=3 uid="uid://47oey4egdmgj"]
+
+[ext_resource type="PackedScene" uid="uid://bh8isvqs258cp" path="res://addons/hand_pose_detector/hand_pose_controller.tscn" id="1_smehm"]
+[ext_resource type="Script" uid="uid://gnyhwbau3qrf" path="res://scripts/player.gd" id="1_ur7pv"]
+[ext_resource type="Shader" uid="uid://dlwkxsnv1liw6" path="res://shaders/viewport_ui.gdshader" id="2_d2wvv"]
+[ext_resource type="Script" uid="uid://by434t17106ou" path="res://addons/hand_pose_detector/hand_pose_action.gd" id="2_ur7pv"]
+[ext_resource type="Script" uid="uid://dd00v7brfg7t4" path="res://scripts/right_hand.gd" id="2_y4r1p"]
+[ext_resource type="FontFile" uid="uid://288likiruhul" path="res://assets/Quantico/Quantico-Regular.ttf" id="3_jej6c"]
+[ext_resource type="Resource" uid="uid://dhbqusuodrl3r" path="res://addons/hand_pose_detector/poses/fist.tres" id="3_y4r1p"]
+[ext_resource type="Script" uid="uid://cmyxeshkakwd8" path="res://addons/hand_pose_detector/hand_pose_action_map.gd" id="4_d2wvv"]
+[ext_resource type="Resource" uid="uid://ckjd0xa2a240p" path="res://addons/hand_pose_detector/poses/standard_pose_set.tres" id="5_3v2ag"]
+[ext_resource type="PackedScene" uid="uid://df5hynbooj1uj" path="res://addons/hand_pose_detector/hand_pose_detector.tscn" id="6_jej6c"]
+[ext_resource type="PackedScene" uid="uid://d0tfama4eqsdj" path="res://addons/hand_pose_detector/hands/RightHandHumanoid.gltf" id="7_f1ej7"]
+[ext_resource type="PackedScene" uid="uid://dt4ukwrlu5gem" path="res://addons/hand_pose_detector/hands/LeftHandHumanoid.gltf" id="8_oprun"]
+[ext_resource type="Script" uid="uid://dcy8du1vv33f4" path="res://scripts/left_hand.gd" id="11_3v2ag"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_d2wvv"]
+viewport_path = NodePath("XRCamera3D/MeshInstance3D/SubViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3v2ag"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("2_d2wvv")
+shader_parameter/tex = SubResource("ViewportTexture_d2wvv")
+
+[sub_resource type="QuadMesh" id="QuadMesh_y4r1p"]
+resource_local_to_scene = true
+material = SubResource("ShaderMaterial_3v2ag")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3v2ag"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 0.2627451)
+
+[sub_resource type="Resource" id="Resource_31oly"]
+script = ExtResource("2_ur7pv")
+pose = ExtResource("3_y4r1p")
+action_type = 1
+action_name = "grip"
+metadata/_custom_type_script = "uid://by434t17106ou"
+
+[sub_resource type="Resource" id="Resource_a8ls1"]
+script = ExtResource("4_d2wvv")
+actions = Array[ExtResource("2_ur7pv")]([SubResource("Resource_31oly")])
+metadata/_custom_type_script = "uid://cmyxeshkakwd8"
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qfm1y"]
+radius = 0.02
+height = 0.04
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_y4r1p"]
+size = Vector3(0.07, 0.07, 0.06)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y4r1p"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.1882353)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_d2wvv"]
+points = PackedVector3Array(0.035, 0.035, 0.030000003, 0.035, 0.035, -0.03, -0.035, 0.035, 0.030000003, 0.035, -0.035, 0.030000003, 0.035, -0.035, -0.03, -0.035, 0.035, -0.03, -0.035, -0.035, 0.030000003, -0.035, -0.035, -0.03)
+
+[node name="Player" type="XROrigin3D" unique_id=956410068]
+script = ExtResource("1_ur7pv")
+
+[node name="XRCamera3D" type="XRCamera3D" parent="." unique_id=1462536690]
+fov = 37.849285
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="XRCamera3D" unique_id=1400780623]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+mesh = SubResource("QuadMesh_y4r1p")
+
+[node name="SubViewport" type="SubViewport" parent="XRCamera3D/MeshInstance3D" unique_id=1547412218]
+transparent_bg = true
+render_target_update_mode = 4
+
+[node name="Label" type="Label" parent="XRCamera3D/MeshInstance3D/SubViewport" unique_id=1013966430]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -358.0
+offset_top = -11.5
+offset_right = 358.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+text = "Hi console"
+
+[node name="AudioListener3D" type="AudioListener3D" parent="XRCamera3D" unique_id=1941162828]
+doppler_tracking = 1
+current = true
+
+[node name="Succees_notification" type="CSGBox3D" parent="XRCamera3D" unique_id=1460302995]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0.020551145, -0.3175448)
+visible = false
+size = Vector3(1.6679688, 0.7246094, 0.03125)
+material = SubResource("StandardMaterial3D_3v2ag")
+
+[node name="Label3D" type="Label3D" parent="XRCamera3D/Succees_notification" unique_id=591272022]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.020551145, 0.03099209)
+text = "SOS Sent!
+You succeeded. 
+⠀
+.. game will restart .."
+font = ExtResource("3_jej6c")
+line_spacing = -14.215
+
+[node name="Fail_notification" type="CSGBox3D" parent="XRCamera3D" unique_id=379588959]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0.020551145, -0.3175448)
+visible = false
+size = Vector3(1.6679688, 0.7246094, 0.03125)
+material = SubResource("StandardMaterial3D_3v2ag")
+
+[node name="Label3D" type="Label3D" parent="XRCamera3D/Fail_notification" unique_id=2116411366]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.020551145, 0.03099209)
+text = "You hit the debris..
+failed... 
+⠀
+.. game will restart .."
+font = ExtResource("3_jej6c")
+line_spacing = -14.215
+
+[node name="right" type="XRNode3D" parent="." unique_id=1314809043 node_paths=PackedStringArray("hand_fist_area")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.382, 0, 0)
+tracker = &"/user/hand_tracker/right"
+show_when_tracked = true
+script = ExtResource("2_y4r1p")
+hand_fist_area = NodePath("RightHandHumanoid2/RightHandHumanoid/Skeleton3D/BoneAttachment3D/FistArea")
+
+[node name="HandPoseController" parent="right" unique_id=776296359 instance=ExtResource("1_smehm")]
+controller_tracker_name = "/user/hand_pose_controller/right"
+controller_pose_type = 2
+controller_action_map = SubResource("Resource_a8ls1")
+hand_tracker_name = "/user/hand_tracker/right"
+hand_pose_set = ExtResource("5_3v2ag")
+
+[node name="HandPoseDetector" parent="right" unique_id=249574672 instance=ExtResource("6_jej6c")]
+hand_tracker_name = "/user/hand_tracker/right"
+hand_pose_set = ExtResource("5_3v2ag")
+
+[node name="RightHandHumanoid2" parent="right" unique_id=906029756 instance=ExtResource("7_f1ej7")]
+
+[node name="XRHandModifier3D" type="XRHandModifier3D" parent="right/RightHandHumanoid2/RightHandHumanoid/Skeleton3D" parent_id_path=PackedInt32Array(906029756, 82064480) index="0" unique_id=1583313201]
+hand_tracker = &"/user/hand_tracker/right"
+
+[node name="tip5" type="BoneAttachment3D" parent="right/RightHandHumanoid2/RightHandHumanoid/Skeleton3D" parent_id_path=PackedInt32Array(906029756, 82064480) index="2" unique_id=566568971]
+transform = Transform3D(0.01903836, -0.39268863, -0.9194744, 0.99322706, 0.11285307, -0.027631793, 0.11461615, -0.91272074, 0.39217746, 0.011100034, 0.04294298, -0.17161338)
+bone_name = "RightIndexTip"
+bone_idx = 9
+
+[node name="right_hand" type="Area3D" parent="right/RightHandHumanoid2/RightHandHumanoid/Skeleton3D/tip5" unique_id=1804851621]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="right/RightHandHumanoid2/RightHandHumanoid/Skeleton3D/tip5/right_hand" unique_id=1002130]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, -0.015, 0)
+shape = SubResource("CapsuleShape3D_qfm1y")
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="right/RightHandHumanoid2/RightHandHumanoid/Skeleton3D/tip5/right_hand/CollisionShape3D" unique_id=1270222717]
+visible = false
+use_collision = true
+radius = 0.02
+
+[node name="BoneAttachment3D" type="BoneAttachment3D" parent="right/RightHandHumanoid2/RightHandHumanoid/Skeleton3D" parent_id_path=PackedInt32Array(906029756, 82064480) index="3" unique_id=1401218535]
+transform = Transform3D(1.7881392e-07, 1.838803e-05, -0.99999994, 0.9999985, 0.0016677376, 1.7881392e-07, 0.0016676484, -0.99999833, -1.8358229e-05, -3.8642522e-08, -1.8697472e-05, 0.027175574)
+bone_name = "RightHand"
+bone_idx = 0
+
+[node name="ShapeCast3D" type="ShapeCast3D" parent="right/RightHandHumanoid2/RightHandHumanoid/Skeleton3D/BoneAttachment3D" unique_id=1456705305]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.075, 0.02)
+visible = false
+shape = SubResource("BoxShape3D_y4r1p")
+target_position = Vector3(0, 0, 0)
+collide_with_areas = true
+collide_with_bodies = false
+debug_shape_custom_color = Color(1, 1, 1, 1)
+
+[node name="FistArea" type="Area3D" parent="right/RightHandHumanoid2/RightHandHumanoid/Skeleton3D/BoneAttachment3D" unique_id=962570934]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="right/RightHandHumanoid2/RightHandHumanoid/Skeleton3D/BoneAttachment3D/FistArea" unique_id=1859760833]
+transform = Transform3D(1, 0, -3.5527137e-15, 0, 1, 0, 0, 0, 1, 2.3646862e-11, 0.075, 0.02000004)
+visible = false
+material_override = SubResource("StandardMaterial3D_y4r1p")
+size = Vector3(0.07, 0.07, 0.06)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="right/RightHandHumanoid2/RightHandHumanoid/Skeleton3D/BoneAttachment3D/FistArea" unique_id=923309104]
+transform = Transform3D(1, 0, -3.5527137e-15, 0, 1, 0, 0, 0, 1, 2.3646862e-11, 0.075, 0.02000004)
+shape = SubResource("ConvexPolygonShape3D_d2wvv")
+
+[node name="left" type="XRNode3D" parent="." unique_id=603657195 node_paths=PackedStringArray("hand_fist_area")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.382, 0, 0)
+tracker = &"/user/hand_tracker/left"
+show_when_tracked = true
+script = ExtResource("11_3v2ag")
+hand_fist_area = NodePath("LeftHandHumanoid2/LeftHandHumanoid/Skeleton3D/BoneAttachment3D/FistArea2")
+
+[node name="HandPoseController" parent="left" unique_id=1959174124 instance=ExtResource("1_smehm")]
+controller_pose_type = 2
+controller_action_map = SubResource("Resource_a8ls1")
+hand_pose_set = ExtResource("5_3v2ag")
+
+[node name="HandPoseDetector" parent="left" unique_id=512591637 instance=ExtResource("6_jej6c")]
+hand_pose_set = ExtResource("5_3v2ag")
+
+[node name="LeftHandHumanoid2" parent="left" unique_id=1331927910 instance=ExtResource("8_oprun")]
+
+[node name="XRHandModifier3D" type="XRHandModifier3D" parent="left/LeftHandHumanoid2/LeftHandHumanoid/Skeleton3D" parent_id_path=PackedInt32Array(1331927910, 982471709) index="0" unique_id=2046003671]
+
+[node name="tip5" type="BoneAttachment3D" parent="left/LeftHandHumanoid2/LeftHandHumanoid/Skeleton3D" parent_id_path=PackedInt32Array(1331927910, 982471709) index="2" unique_id=1922671190]
+transform = Transform3D(0.01489234, 0.39270008, 0.919546, -0.9930924, 0.11285266, -0.03211129, -0.11638325, -0.91271573, 0.39166808, -0.01110013, 0.04294307, -0.17161417)
+bone_name = "LeftIndexTip"
+bone_idx = 9
+
+[node name="left_hand" type="Area3D" parent="left/LeftHandHumanoid2/LeftHandHumanoid/Skeleton3D/tip5" unique_id=1452754566]
+transform = Transform3D(1, 0, 0, 0, 1.0000002, 0, 0, 0, 1.0000005, 0, 0, 0)
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="left/LeftHandHumanoid2/LeftHandHumanoid/Skeleton3D/tip5/left_hand" unique_id=1278451179]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, -0.015, 0)
+shape = SubResource("CapsuleShape3D_qfm1y")
+
+[node name="BoneAttachment3D" type="BoneAttachment3D" parent="left/LeftHandHumanoid2/LeftHandHumanoid/Skeleton3D" parent_id_path=PackedInt32Array(1331927910, 982471709) index="3" unique_id=615949696]
+transform = Transform3D(1.7881392e-07, -1.838803e-05, 0.99999994, -0.9999985, 0.0016677376, 1.7881392e-07, -0.0016676484, -0.99999833, -1.8358229e-05, 3.8642522e-08, -1.8697472e-05, 0.027175574)
+bone_name = "LeftHand"
+bone_idx = 0
+
+[node name="ShapeCast3D2" type="ShapeCast3D" parent="left/LeftHandHumanoid2/LeftHandHumanoid/Skeleton3D/BoneAttachment3D" unique_id=82779417]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.075, 0.02)
+visible = false
+shape = SubResource("BoxShape3D_y4r1p")
+target_position = Vector3(0, 0, 0)
+collide_with_areas = true
+collide_with_bodies = false
+debug_shape_custom_color = Color(1, 1, 1, 1)
+
+[node name="FistArea2" type="Area3D" parent="left/LeftHandHumanoid2/LeftHandHumanoid/Skeleton3D/BoneAttachment3D" unique_id=156665735]
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="left/LeftHandHumanoid2/LeftHandHumanoid/Skeleton3D/BoneAttachment3D/FistArea2" unique_id=1880764765]
+transform = Transform3D(1, 0, -3.5527137e-15, 0, 1, 0, 0, 0, 1, 2.3646862e-11, 0.075, 0.02000004)
+visible = false
+material_override = SubResource("StandardMaterial3D_y4r1p")
+size = Vector3(0.07, 0.07, 0.06)
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="left/LeftHandHumanoid2/LeftHandHumanoid/Skeleton3D/BoneAttachment3D/FistArea2" unique_id=523982449]
+transform = Transform3D(1, 0, -3.5527137e-15, 0, 1, 0, 0, 0, 1, 2.3646862e-11, 0.075, 0.02000004)
+shape = SubResource("ConvexPolygonShape3D_d2wvv")
+
+[editable path="right/RightHandHumanoid2"]
+[editable path="left/LeftHandHumanoid2"]
